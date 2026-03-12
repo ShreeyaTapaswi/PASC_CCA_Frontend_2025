@@ -22,13 +22,22 @@ const Navbar = () => {
   const user = useAuthStore((state) => state.user);
   const admin = useAuthStore((state) => state.admin);
 
-  // Determine if user is actually logged in (has token and user/admin data)
+  // Determine if user is actually logged in.
+  // We use localStorage as the source of truth so the Navbar stays consistent
+  // even when the Zustand store hasn't been hydrated yet (e.g. when the user
+  // navigates to the landing page "/" directly without going through AuthGuard).
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [effectiveRole, setEffectiveRole] = useState<"student" | "admin" | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setIsLoggedIn(!!(token && (user || admin)));
-  }, [user, admin]);
+    const storedRole = localStorage.getItem("role") as "student" | "admin" | null;
+    // Logged in if: there's a token AND (the Zustand store has user/admin data OR localStorage has a role)
+    const loggedIn = !!(token && (user || admin || storedRole));
+    setIsLoggedIn(loggedIn);
+    // Role: prefer the live Zustand store value, fall back to localStorage
+    setEffectiveRole(role ?? storedRole);
+  }, [user, admin, role]);
 
   // Check if we're on the landing page or auth pages
   const isLandingPage = pathname === "/";
@@ -85,12 +94,12 @@ const Navbar = () => {
     <nav className="w-full sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 transition-colors">
       <div className="flex justify-between items-center mx-auto px-5 py-3">
         {/* Logo */}
-        <Link href={isLoggedIn ? (role === "admin" ? "/admin/dashboard" : "/student/dashboard") : "/"} className="flex items-center cursor-pointer">
+        <Link href={isLoggedIn ? (effectiveRole === "admin" ? "/admin/dashboard" : "/student/dashboard") : "/"} className="flex items-center cursor-pointer">
           <Image src="/logo.png" width={120} height={80} alt="logo" priority />
         </Link>
 
         {/* Navigation Links - Only show for logged in users */}
-        {isLoggedIn && role === "student" && (
+        {isLoggedIn && effectiveRole === "student" && (
           <div className="hidden md:flex items-center gap-1">
             <Link
               href="/student/dashboard"
@@ -135,7 +144,7 @@ const Navbar = () => {
           </div>
         )}
 
-        {isLoggedIn && role === "admin" && (
+        {isLoggedIn && effectiveRole === "admin" && (
           <div className="hidden md:flex items-center gap-1">
             <Link
               href="/admin/dashboard"
@@ -252,7 +261,7 @@ const Navbar = () => {
                     <button
                       onClick={() => {
                         setShowUserMenu(false);
-                        router.push(role === "admin" ? "/admin/dashboard" : "/student/dashboard");
+                        router.push(effectiveRole === "admin" ? "/admin/dashboard" : "/student/dashboard");
                       }}
                       className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center gap-2 text-gray-700 dark:text-gray-300"
                     >
@@ -277,7 +286,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      {mobileMenuOpen && isLoggedIn && role === "student" && (
+      {mobileMenuOpen && isLoggedIn && effectiveRole === "student" && (
         <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
           <div className="flex flex-col p-4 space-y-2">
             <Link
@@ -328,7 +337,7 @@ const Navbar = () => {
         </div>
       )}
 
-      {mobileMenuOpen && isLoggedIn && role === "admin" && (
+      {mobileMenuOpen && isLoggedIn && effectiveRole === "admin" && (
         <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
           <div className="flex flex-col p-4 space-y-2">
             <Link
