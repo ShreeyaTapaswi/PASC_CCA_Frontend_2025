@@ -27,7 +27,7 @@ export function RoleToggle({
       <div className="relative flex bg-profile rounded-full p-1 w-72">
         {/* Sliding Background */}
         <motion.div
-          className="absolute top-1 bottom-1 rounded-full bg-[#2563eb]" /* Consistent blue */
+          className="absolute top-1 bottom-1 rounded-full bg-[var(--color-button-primary)]"
           layout
           initial={{ opacity: 0 }}
           animate={{
@@ -42,7 +42,7 @@ export function RoleToggle({
         <button
           onClick={() => handleToggle("student")}
           className={`relative flex-1 px-6 py-2 rounded-full transition-colors duration-300 z-20 ${
-            role === "student" ? "bg-[#2563eb] text-white" : "text-primary"
+            role === "student" ? "bg-[var(--color-button-primary)] text-white" : "text-primary"
           }`}
         >
           Student
@@ -51,7 +51,7 @@ export function RoleToggle({
         <button
           onClick={() => handleToggle("admin")}
           className={`relative flex-1 px-6 py-2 rounded-full transition-colors duration-300 z-20 ${
-            role === "admin" ? "bg-[#2563eb] text-white" : "text-primary"
+            role === "admin" ? "bg-[var(--color-button-primary)] text-white" : "text-primary"
           }`}
         >
           Admin

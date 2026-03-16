@@ -82,7 +82,7 @@ export function GallerySection({ eventId }: GallerySectionProps) {
         >
           <button
             onClick={() => setSelectedImage(null)}
-            className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+            className="absolute top-4 right-4 p-2 bg-[var(--color-card)]/10 hover:bg-[var(--color-card)]/20 rounded-full transition-colors"
           >
             <X className="w-6 h-6 text-white" />
           </button>

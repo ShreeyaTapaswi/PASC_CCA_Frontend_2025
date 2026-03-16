@@ -12,21 +12,21 @@ interface ResourceSectionProps {
 }
 
 const resourceIcons: Record<ResourceType, React.ReactNode> = {
-  SLIDES: <FileText className="w-5 h-5 text-blue-500" />,
+  SLIDES: <FileText className="w-5 h-5 text-[var(--color-info)]" />,
   VIDEO: <Video className="w-5 h-5 text-red-500" />,
   CODE: <Code className="w-5 h-5 text-green-500" />,
   DOCUMENT: <FileText className="w-5 h-5 text-purple-500" />,
   LINK: <LinkIcon className="w-5 h-5 text-orange-500" />,
-  OTHER: <FileText className="w-5 h-5 text-gray-500" />,
+  OTHER: <FileText className="w-5 h-5 text-[var(--color-text-muted)]" />,
 };
 
 const resourceColors: Record<ResourceType, string> = {
-  SLIDES: 'bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800',
+  SLIDES: 'bg-[var(--color-surface-hover)]/20 border-[var(--color-info)]/30 dark:border-[var(--color-info)]/30',
   VIDEO: 'bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800',
   CODE: 'bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-800',
   DOCUMENT: 'bg-purple-50 dark:bg-purple-950/20 border-purple-200 dark:border-purple-800',
   LINK: 'bg-orange-50 dark:bg-orange-950/20 border-orange-200 dark:border-orange-800',
-  OTHER: 'bg-gray-50 dark:bg-gray-950/20 border-gray-200 dark:border-gray-800',
+  OTHER: 'bg-[var(--color-surface)]/20 border-[var(--color-border)]',
 };
 
 export function ResourceSection({ eventId }: ResourceSectionProps) {

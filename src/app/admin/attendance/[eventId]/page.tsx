@@ -314,38 +314,38 @@ const AttendanceManagement: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[var(--color-surface)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
         <div className="mb-8">
           <div className="flex items-center space-x-4 mb-4">
-            <button className="flex items-center text-blue-600 hover:text-blue-800" onClick={() => router.push('/admin/dashboard')}>
+            <button className="flex items-center text-[var(--color-primary)] hover:text-[var(--color-primary)]" onClick={() => router.push('/admin/dashboard')}>
               <ArrowLeft className="w-5 h-5 mr-1" />
               <span>Back to admin dashboard</span>
             </button>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">Attendance Management</h1>
+          <h1 className="text-3xl font-bold text-[var(--color-text-primary)]">Attendance Management</h1>
           <div className="flex items-center justify-between mt-4">
-            <p className="text-lg text-gray-600">Web Dev SIG</p>
-            <div className="text-sm text-gray-500">3/15/2024 - 8/5/2024</div>
+            <p className="text-lg text-[var(--color-text-muted)]">Web Dev SIG</p>
+            <div className="text-sm text-[var(--color-text-muted)]">3/15/2024 - 8/5/2024</div>
           </div>
         </div>
 
         {/* Session List */}
-        <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
+        <div className="bg-[var(--color-card)] rounded-lg shadow-sm border p-6 mb-6">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold text-gray-900">Select Session</h2>
+            <h2 className="text-xl font-semibold text-[var(--color-text-primary)]">Select Session</h2>
             <div className="flex gap-2">
               <button
                 onClick={handleExport}
-                className="flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+                className="flex items-center px-4 py-2 bg-[var(--color-surface)] text-[var(--color-text-secondary)] rounded-lg hover:bg-[var(--color-surface-hover)]"
               >
                 <Download className="w-4 h-4 mr-2" />
                 Export Excel
               </button>
               <button
                 onClick={handleOpenAddModal}
-                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                className="flex items-center px-4 py-2 bg-[var(--color-button-primary)] text-white rounded-lg hover:bg-[var(--color-button-primary)]"
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Add Session
@@ -353,11 +353,11 @@ const AttendanceManagement: React.FC = () => {
             </div>
           </div>
           {sessions.length === 0 ? (
-            <div className="text-center text-gray-500 py-12">
+            <div className="text-center text-[var(--color-text-muted)] py-12">
               <p className="mb-4">No sessions yet. Click 'Add Session' to create one.</p>
               <button
                 onClick={handleOpenAddModal}
-                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                className="inline-flex items-center px-4 py-2 bg-[var(--color-button-primary)] text-white rounded-lg hover:bg-[var(--color-button-primary)]"
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Add Session
@@ -369,18 +369,18 @@ const AttendanceManagement: React.FC = () => {
                 <div
                   key={session.id}
                   className={`relative border rounded-lg p-4 cursor-pointer transition-all ${activeSession === session.id
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-gray-300'
+                    ? 'border-[var(--color-info)] bg-[var(--color-surface)]'
+                    : 'border-[var(--color-border)] hover:border-[var(--color-border)]'
                     }`}
                   onClick={() => setActiveSession(session.id)}
                 >
-                  <div className="flex items-center justify-end space-x-2 mb-3 pb-2 border-b border-gray-100">
+                  <div className="flex items-center justify-end space-x-2 mb-3 pb-2 border-b border-[var(--color-border)]">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         handleOpenEditModal(session);
                       }}
-                      className="p-1.5 rounded-md text-gray-400 hover:text-blue-600 hover:bg-blue-50"
+                      className="p-1.5 rounded-md text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-[var(--color-surface)]"
                       title="Edit Session"
                     >
                       <Edit3 className="w-4 h-4" />
@@ -390,7 +390,7 @@ const AttendanceManagement: React.FC = () => {
                         e.stopPropagation();
                         handleEditSession(session);
                       }}
-                      className="p-1.5 rounded-md text-gray-400 hover:text-green-600 hover:bg-green-50"
+                      className="p-1.5 rounded-md text-[var(--color-text-muted)] hover:text-green-600 hover:bg-green-50"
                       title="Update Session"
                     >
                       <span className="font-bold">Update</span>
@@ -402,7 +402,7 @@ const AttendanceManagement: React.FC = () => {
                       }}
                       className={`p-1.5 rounded-md ${session.isActive
                         ? 'text-green-600 hover:text-green-700 hover:bg-green-50'
-                        : 'text-gray-400 hover:text-gray-600 hover:bg-gray-50'
+                        : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-muted)] hover:bg-[var(--color-surface)]'
                         }`}
                       title={session.isActive ? 'Disable Session' : 'Enable Session'}
                     >
@@ -413,7 +413,7 @@ const AttendanceManagement: React.FC = () => {
                         e.stopPropagation();
                         deleteSession(session.id);
                       }}
-                      className="p-1.5 rounded-md text-gray-400 hover:text-red-600 hover:bg-red-50"
+                      className="p-1.5 rounded-md text-[var(--color-text-muted)] hover:text-red-600 hover:bg-red-50"
                       title="Delete Session"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -422,28 +422,28 @@ const AttendanceManagement: React.FC = () => {
 
                   {/* Title */}
                   <div className="mb-3">
-                    <span className="text-sm font-medium text-gray-900">{session.sessionName}</span>
+                    <span className="text-sm font-medium text-[var(--color-text-primary)]">{session.sessionName}</span>
                   </div>
                   {/* Location */}
                   <div className="mb-3">
-                    <span className="text-xs text-gray-500">{session.location}</span>
+                    <span className="text-xs text-[var(--color-text-muted)]">{session.location}</span>
                   </div>
                   {/* Start/End Time */}
                   <div className="mb-3">
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-[var(--color-text-muted)]">
                       {new Date(session.startTime).toLocaleString()} - {new Date(session.endTime).toLocaleString()}
                     </span>
                   </div>
                   {/* Status */}
                   <div className="flex items-center justify-between">
                     <span
-                      className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${session.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                      className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${session.isActive ? 'bg-green-100 text-green-800' : 'bg-[var(--color-surface)] text-[var(--color-text-primary)]'
                         }`}
                     >
                       {session.isActive ? 'Active' : 'Disabled'}
                     </span>
                     {activeSession === session.id && (
-                      <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                      <div className="w-2 h-2 bg-[var(--color-button-primary)] rounded-full"></div>
                     )}
                   </div>
                 </div>
@@ -454,23 +454,23 @@ const AttendanceManagement: React.FC = () => {
 
         {/* Attendance Stats */}
         {sessions.length > 0 && activeSession !== null && (
-          <div className="bg-white rounded-lg shadow-sm border p-6">
+          <div className="bg-[var(--color-card)] rounded-lg shadow-sm border p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-900">
+              <h2 className="text-xl font-semibold text-[var(--color-text-primary)]">
                 Attendance For {sessions.find((s) => s.id === activeSession)?.sessionName}
               </h2>
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-2">
-                  <span className="text-sm text-gray-600">Enable Attendance</span>
+                  <span className="text-sm text-[var(--color-text-muted)]">Enable Attendance</span>
                   <button
                     onClick={() => toggleSession(activeSession)}
                     className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${sessions.find((s) => s.id === activeSession)?.isActive
-                      ? 'bg-blue-600'
-                      : 'bg-gray-200'
+                      ? 'bg-[var(--color-button-primary)]'
+                      : 'bg-[var(--color-surface-hover)]'
                       }`}
                   >
                     <span
-                      className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${sessions.find((s) => s.id === activeSession)?.isActive
+                      className={`inline-block h-4 w-4 transform rounded-full bg-[var(--color-card)] transition-transform ${sessions.find((s) => s.id === activeSession)?.isActive
                         ? 'translate-x-6'
                         : 'translate-x-1'
                         }`}
@@ -486,7 +486,7 @@ const AttendanceManagement: React.FC = () => {
               if (session && session.isActive && session.code) {
                 return (
                   <div className="my-8 flex justify-center">
-                    <div className="text-5xl font-extrabold tracking-widest text-blue-700 bg-blue-100 px-8 py-6 rounded-lg shadow">
+                    <div className="text-5xl font-extrabold tracking-widest text-[var(--color-primary)] bg-[var(--color-surface)] px-8 py-6 rounded-lg shadow">
                       {session.code}
                     </div>
                   </div>
@@ -507,9 +507,9 @@ const AttendanceManagement: React.FC = () => {
       {/* Add Session Modal */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-          <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md relative">
+          <div className="bg-[var(--color-card)] rounded-lg shadow-lg p-8 w-full max-w-md relative">
             <button
-              className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+              className="absolute top-2 right-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-muted)]"
               onClick={handleCloseAddModal}
             >
               ×
@@ -605,7 +605,7 @@ const AttendanceManagement: React.FC = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+                className="w-full bg-[var(--color-button-primary)] text-white py-2 rounded hover:bg-[var(--color-button-primary)]"
               >
                 {editSessionId !== null ? 'Save Changes' : 'Add Session'}
               </button>

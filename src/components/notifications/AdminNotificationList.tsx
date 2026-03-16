@@ -73,7 +73,7 @@ export function AdminNotificationList() {
         return (
             <div className='text-center py-12 bg-card rounded-lg border border-border'>
                 <p className='text-red-500 mb-4'>{error}</p>
-                <button onClick={fetchNotifications} className='text-blue-600 hover:underline font-medium'>
+                <button onClick={fetchNotifications} className='text-[var(--color-primary)] hover:underline font-medium'>
                     Try again
                 </button>
             </div>
@@ -98,7 +98,7 @@ export function AdminNotificationList() {
                 <div className='flex justify-end'>
                     <button
                         onClick={handleMarkAllAsRead}
-                        className='text-sm text-blue-600 hover:text-blue-800 font-medium'
+                        className='text-sm text-[var(--color-primary)] hover:text-[var(--color-primary)] font-medium'
                     >
                         Mark all as read
                     </button>

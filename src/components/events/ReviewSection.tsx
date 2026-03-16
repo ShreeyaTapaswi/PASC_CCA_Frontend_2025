@@ -271,7 +271,7 @@ export function ReviewSection({ eventId, eventStatus }: ReviewSectionProps) {
         {[1, 2, 3, 4, 5].map(star => (
           <Star
             key={star}
-            className={`w-5 h-5 ${star <= rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'
+            className={`w-5 h-5 ${star <= rating ? 'fill-yellow-400 text-yellow-400' : 'text-[var(--color-text-secondary)]'
               } ${interactive ? 'cursor-pointer hover:scale-110 transition-transform' : ''}`}
             onClick={() => interactive && onChange && onChange(star)}
           />
@@ -438,13 +438,13 @@ export function ReviewSection({ eventId, eventStatus }: ReviewSectionProps) {
             return displayedReviews.map(review => {
               const isOwnReview = review.userId === currentUserId;
               return (
-                <div key={review.id} className={`bg-card rounded-lg border p-4 ${isOwnReview ? 'border-blue-300 dark:border-blue-700 bg-blue-50/50 dark:bg-blue-950/20' : 'border-border'}`}>
+                <div key={review.id} className={`bg-card rounded-lg border p-4 ${isOwnReview ? 'border-[var(--color-info)]/40 dark:border-[var(--color-info)]/40 bg-[var(--color-surface-hover)]/50/20' : 'border-border'}`}>
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <p className="font-medium flex items-center gap-2">
                         {review.anonymous ? 'Anonymous' : review.user?.name || 'User'}
                         {isOwnReview && (
-                          <span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-2 py-0.5 rounded-full">
+                          <span className="text-xs bg-[var(--color-surface-hover)] text-[var(--color-primary)] px-2 py-0.5 rounded-full">
                             Your review
                           </span>
                         )}
@@ -468,10 +468,10 @@ export function ReviewSection({ eventId, eventStatus }: ReviewSectionProps) {
                           {isOwnReview && (
                             <button
                               onClick={() => handleEditReview(review)}
-                              className="p-2 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
+                              className="p-2 hover:bg-[var(--color-surface-hover)]/30 rounded-lg transition-colors"
                               title="Edit review"
                             >
-                              <Edit2 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                              <Edit2 className="w-4 h-4 text-[var(--color-primary)]" />
                             </button>
                           )}
                           <button

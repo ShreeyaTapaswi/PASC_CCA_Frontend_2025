@@ -12,7 +12,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ user }) => {
     <div className="w-full lg:w-1/3 flex flex-col">
       <div className="bg-card rounded-xl shadow-sm p-6 flex flex-col items-center gap-4 border border-card h-full">
         <div className="flex flex-col items-center gap-2">
-          <div className="w-16 h-16 rounded-full bg-[var(--color-profile)] flex items-center justify-center">
+          <div className="w-16 h-16 rounded-full bg-[var(--color-profile-icon-bg)] flex items-center justify-center">
             <UserIcon className="w-10 h-10 text-[var(--color-text-muted)]" />
           </div>
           <h2 className="text-xl font-semibold">{user.name}</h2>

@@ -140,7 +140,7 @@ export default function Signup() {
         <div className="w-full sm:w-1/2 p-4 sm:p-6 lg:p-10 flex flex-col bg-faint-blue-feature dark:bg-card min-h-[600px]">
           <div className="lg:max-w-sm mx-0 sm:mx-auto w-full flex flex-col mt-0 sm:mt-4">
             <div className="mb-6">
-              <h2 className="text-3xl sm:text-4xl font-bold text-blue-500">
+              <h2 className="text-3xl sm:text-4xl font-bold text-[var(--color-primary)]">
                 Join the PICT ACM Community
               </h2>
             </div>
@@ -192,7 +192,7 @@ export default function Signup() {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-blue-500"
+                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-[var(--color-text-muted)] hover:text-[var(--color-info)]"
                       tabIndex={-1}
                     >
                       {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -212,7 +212,7 @@ export default function Signup() {
                       onClick={() =>
                         setShowConfirmPassword(!showConfirmPassword)
                       }
-                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-blue-500"
+                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-[var(--color-text-muted)] hover:text-[var(--color-info)]"
                       tabIndex={-1}
                     >
                       {showConfirmPassword ? (

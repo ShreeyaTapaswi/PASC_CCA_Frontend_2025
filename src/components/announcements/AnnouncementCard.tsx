@@ -17,15 +17,15 @@ const priorityConfig: Record<AnnouncementPriority, {
 }> = {
   LOW: {
     icon: <Info className="w-5 h-5" />,
-    bgColor: 'bg-gray-50 dark:bg-gray-900/20',
-    borderColor: 'border-gray-300 dark:border-gray-700',
-    textColor: 'text-gray-700 dark:text-gray-300',
+    bgColor: 'bg-[var(--color-surface)]/20',
+    borderColor: 'border-[var(--color-border)]',
+    textColor: 'text-[var(--color-text-secondary)]',
   },
   NORMAL: {
     icon: <Megaphone className="w-5 h-5" />,
-    bgColor: 'bg-blue-50 dark:bg-blue-950/20',
-    borderColor: 'border-blue-300 dark:border-blue-700',
-    textColor: 'text-blue-700 dark:text-blue-300',
+    bgColor: 'bg-[var(--color-surface-hover)]/20',
+    borderColor: 'border-[var(--color-info)]/40 dark:border-[var(--color-info)]/40',
+    textColor: 'text-[var(--color-primary)]',
   },
   HIGH: {
     icon: <AlertTriangle className="w-5 h-5" />,
@@ -53,10 +53,9 @@ export function AnnouncementCard({ announcement, onMarkAsRead }: AnnouncementCar
   return (
     <div
       onClick={handleClick}
-      className={`p-4 rounded-lg border-l-4 ${config.bgColor} ${config.borderColor} cursor-pointer transition-all hover:shadow-md ${!announcement.isRead ? 'ring-2 ring-blue-200 dark:ring-blue-800' : ''
-        }`}
+      className={`p-4 rounded-lg bg-[var(--color-card)] border border-[var(--color-border)] ${config.bgColor} ${config.textColor} cursor-pointer transition-all hover:shadow-md ${!announcement.isRead ? 'ring-2 ring-[var(--color-info)]/30' : ''}`}
     >
-      <div className="flex gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
         <div className={`flex-shrink-0 ${config.textColor}`}>
           {config.icon}
         </div>
@@ -66,7 +65,7 @@ export function AnnouncementCard({ announcement, onMarkAsRead }: AnnouncementCar
               {announcement.title}
             </h3>
             {!announcement.isRead && (
-              <span className="flex-shrink-0 px-2 py-1 text-xs font-medium bg-blue-600 text-white rounded-full">
+              <span className="flex-shrink-0 px-2 py-1 text-xs font-medium bg-[var(--color-button-primary)] text-white rounded-full">
                 New
               </span>
             )}

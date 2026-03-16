@@ -10,13 +10,16 @@ import { Skeleton } from '../ui/skeleton';
 
 interface SessionManagerProps {
     eventId: number;
+    eventStartDate?: string;
+    eventEndDate?: string;
 }
 
-export function SessionManager({ eventId }: SessionManagerProps) {
+export function SessionManager({ eventId, eventStartDate, eventEndDate }: SessionManagerProps) {
     const [sessions, setSessions] = useState<AttendanceSession[]>([]);
     const [loading, setLoading] = useState(true);
     const [isAdding, setIsAdding] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+    const [dateError, setDateError] = useState<string | null>(null);
 
     const [formData, setFormData] = useState({
         sessionName: '',
@@ -49,8 +52,41 @@ export function SessionManager({ eventId }: SessionManagerProps) {
         setFormData({ ...formData, code });
     };
 
+    // Helper: extract YYYY-MM-DD from a datetime-local string or date string
+    const toDateOnly = (val: string): string => {
+        // datetime-local is "YYYY-MM-DDTHH:mm", date input is "YYYY-MM-DD"
+        return val.split('T')[0];
+    };
+
     const handleAddSession = async () => {
         if (!formData.sessionName || !formData.code) return;
+
+        // Require startTime
+        if (!formData.startTime) {
+            setDateError('Session start time is required.');
+            return;
+        }
+
+        // Client-side date range validation (compare dates only, ignore time-of-day)
+        if (eventStartDate && eventEndDate) {
+            const evStartStr = toDateOnly(eventStartDate); // "YYYY-MM-DD"
+            const evEndStr = toDateOnly(eventEndDate);     // "YYYY-MM-DD"
+
+            const sessStartStr = toDateOnly(formData.startTime);
+            if (sessStartStr < evStartStr || sessStartStr > evEndStr) {
+                setDateError(`Session start date must be between ${evStartStr} and ${evEndStr}`);
+                return;
+            }
+
+            if (formData.endTime) {
+                const sessEndStr = toDateOnly(formData.endTime);
+                if (sessEndStr < evStartStr || sessEndStr > evEndStr) {
+                    setDateError(`Session end date must be between ${evStartStr} and ${evEndStr}`);
+                    return;
+                }
+            }
+        }
+        setDateError(null);
         setSubmitting(true);
         try {
             const payload = {
@@ -63,9 +99,12 @@ export function SessionManager({ eventId }: SessionManagerProps) {
             if (response.data?.success) {
                 setIsAdding(false);
                 setFormData({ sessionName: '', location: '', credits: 1, startTime: '', endTime: '', code: '' });
+                setDateError(null);
                 fetchSessions();
             }
-        } catch (error) {
+        } catch (error: any) {
+            const msg = error?.response?.data?.message || error?.message || 'Failed to create session';
+            setDateError(msg);
             console.error('Error adding session:', error);
         } finally {
             setSubmitting(false);
@@ -151,11 +190,14 @@ export function SessionManager({ eventId }: SessionManagerProps) {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div className="space-y-1">
-                            <label className="text-xs font-medium">Start Time</label>
+                            <label className="text-xs font-medium">Start Time <span className="text-red-500">*</span></label>
                             <Input
                                 type="datetime-local"
                                 value={formData.startTime}
-                                onChange={e => setFormData({ ...formData, startTime: e.target.value })}
+                                min={eventStartDate ? `${toDateOnly(eventStartDate)}T00:00` : undefined}
+                                max={eventEndDate ? `${toDateOnly(eventEndDate)}T23:59` : undefined}
+                                onChange={e => { setFormData({ ...formData, startTime: e.target.value }); setDateError(null); }}
+                                required
                             />
                         </div>
                         <div className="space-y-1">
@@ -163,14 +205,26 @@ export function SessionManager({ eventId }: SessionManagerProps) {
                             <Input
                                 type="datetime-local"
                                 value={formData.endTime}
-                                onChange={e => setFormData({ ...formData, endTime: e.target.value })}
+                                min={eventStartDate ? `${toDateOnly(eventStartDate)}T00:00` : undefined}
+                                max={eventEndDate ? `${toDateOnly(eventEndDate)}T23:59` : undefined}
+                                onChange={e => { setFormData({ ...formData, endTime: e.target.value }); setDateError(null); }}
                             />
                         </div>
                     </div>
 
+                    {eventStartDate && eventEndDate && (
+                        <p className="text-xs text-muted-foreground">
+                            Allowed date range: {toDateOnly(eventStartDate)} to {toDateOnly(eventEndDate)}
+                        </p>
+                    )}
+
+                    {dateError && (
+                        <p className="text-sm text-red-500 font-medium">{dateError}</p>
+                    )}
+
                     <div className="flex gap-2 justify-end">
                         <Button variant="ghost" size="sm" onClick={() => setIsAdding(false)}>Cancel</Button>
-                        <Button size="sm" onClick={handleAddSession} disabled={submitting || !formData.code || !formData.sessionName}>
+                        <Button size="sm" onClick={handleAddSession} disabled={submitting || !formData.code || !formData.sessionName || !formData.startTime}>
                             {submitting ? 'Creating...' : 'Create Session'}
                         </Button>
                     </div>

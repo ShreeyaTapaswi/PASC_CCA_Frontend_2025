@@ -192,24 +192,24 @@ const EditEventPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className={`min-h-screen p-6 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-black'}`}>
+      <div className={`min-h-screen p-6 bg-[var(--color-surface)] text-[var(--color-text-primary)]`}>
         <div className="max-w-4xl mx-auto">
-          <div className={`rounded-lg p-6 shadow ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+          <div className={`rounded-lg p-6 shadow bg-[var(--color-card)]`}>
             {errorMessage ? (
               <div className="flex flex-col items-center justify-center py-20">
                 <AlertCircle className="w-12 h-12 text-red-600 mb-4" />
                 <p className="text-lg font-semibold mb-2">Error Loading Event</p>
-                <p className="text-sm text-gray-600">{errorMessage}</p>
+                <p className="text-sm text-[var(--color-text-muted)]">{errorMessage}</p>
                 <button
                   onClick={() => router.push('/admin/dashboard')}
-                  className="mt-4 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+                  className="mt-4 bg-[var(--color-button-primary)] text-white px-6 py-2 rounded hover:bg-[var(--color-button-primary)]"
                 >
                   Back to Dashboard
                 </button>
               </div>
             ) : (
               <div className="flex items-center justify-center py-20">
-                <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+                <Loader2 className="w-8 h-8 animate-spin text-[var(--color-primary)]" />
                 <span className="ml-2">Loading event data...</span>
               </div>
             )}
@@ -220,10 +220,10 @@ const EditEventPage: React.FC = () => {
   }
 
   return (
-    <div className={`min-h-screen p-6 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-black'}`}>
+    <div className={`min-h-screen p-6 bg-[var(--color-surface)] text-[var(--color-text-primary)]`}>
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
-        <div className={`rounded-lg p-6 shadow ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+        <div className={`rounded-lg p-6 shadow bg-[var(--color-card)]`}>
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold">Edit Event</h1>
@@ -233,12 +233,12 @@ const EditEventPage: React.FC = () => {
               <button
                 onClick={toggleDarkMode}
                 type="button"
-                className={`p-2 rounded-lg transition ${isDarkMode ? 'bg-gray-700 text-yellow-400 hover:bg-gray-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}
+                className={`p-2 rounded-lg transition bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)]`}
                 title="Toggle dark mode"
               >
                 {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
-              <div className="flex items-center gap-2 text-blue-600">
+              <div className="flex items-center gap-2 text-[var(--color-primary)]">
                 <Calendar className="w-5 h-5" />
                 <span className="font-medium">ACM Student Chapter</span>
               </div>
@@ -249,7 +249,7 @@ const EditEventPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Edit Form */}
           <div className="lg:col-span-2 space-y-6">
-            <div className={`rounded-lg p-6 shadow ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+            <div className="rounded-lg p-6 shadow bg-[var(--color-card)]">
               <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <Settings className="w-5 h-5 text-primary" />
                 Event Configuration
@@ -263,48 +263,48 @@ const EditEventPage: React.FC = () => {
               >
                 <div className="space-y-1">
                   <label className="text-sm font-medium text-muted-foreground font-bold">Event Title</label>
-                  <input name="title" value={formData.title} onChange={handleInputChange} placeholder="Event Title" className={`w-full p-3 border rounded ${isDarkMode ? 'bg-gray-700 border-gray-600 text-white placeholder:text-gray-400' : 'bg-white placeholder:text-gray-400'}`} required />
+                  <input name="title" value={formData.title} onChange={handleInputChange} placeholder="Event Title" className="w-full p-3 border rounded bg-[var(--color-card)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)]" required />
                 </div>
 
                 <div className="space-y-1">
                   <label className="text-sm font-medium text-muted-foreground font-bold">Description</label>
-                  <textarea name="description" value={formData.description} onChange={handleInputChange} placeholder="Description" className={`w-full p-3 border rounded ${isDarkMode ? 'bg-gray-700 border-gray-600 text-white placeholder:text-gray-400' : 'bg-white placeholder:text-gray-400'}`} rows={4} required />
+                  <textarea name="description" value={formData.description} onChange={handleInputChange} placeholder="Description" className="w-full p-3 border rounded bg-[var(--color-card)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)]" rows={4} required />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <label className="text-sm font-medium text-muted-foreground font-bold">Start Date</label>
-                    <input type="date" name="startDate" value={formData.startDate} onChange={handleInputChange} className={`w-full p-3 border rounded ${isDarkMode ? 'bg-gray-700 border-gray-600 text-white' : 'bg-white'}`} required />
+                    <input type="date" name="startDate" value={formData.startDate} onChange={handleInputChange} className="w-full p-3 border rounded bg-[var(--color-card)] border-[var(--color-border)] text-[var(--color-text-primary)]" required />
                   </div>
                   <div className="space-y-1">
                     <label className="text-sm font-medium text-muted-foreground font-bold">End Date</label>
-                    <input type="date" name="endDate" value={formData.endDate} onChange={handleInputChange} className={`w-full p-3 border rounded ${isDarkMode ? 'bg-gray-700 border-gray-600 text-white' : 'bg-white'}`} required />
+                    <input type="date" name="endDate" value={formData.endDate} onChange={handleInputChange} className="w-full p-3 border rounded bg-[var(--color-card)] border-[var(--color-border)] text-[var(--color-text-primary)]" required />
                   </div>
                 </div>
 
                 <div className="space-y-1">
                   <label className="text-sm font-medium text-muted-foreground font-bold">Location</label>
-                  <input name="location" value={formData.location} onChange={handleInputChange} placeholder="Location" className={`w-full p-3 border rounded ${isDarkMode ? 'bg-gray-700 border-gray-600 text-white placeholder:text-gray-400' : 'bg-white placeholder:text-gray-400'}`} required />
+                  <input name="location" value={formData.location} onChange={handleInputChange} placeholder="Location" className="w-full p-3 border rounded bg-[var(--color-card)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)]" required />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <label className="text-sm font-medium text-muted-foreground font-bold">Credits</label>
-                    <input type="number" name="credits" value={formData.credits} onChange={handleInputChange} placeholder="Credits" className={`w-full p-3 border rounded ${isDarkMode ? 'bg-gray-700 border-gray-600 text-white placeholder:text-gray-400' : 'bg-white placeholder:text-gray-400'}`} required />
+                    <input type="number" name="credits" value={formData.credits} onChange={handleInputChange} placeholder="Credits" className="w-full p-3 border rounded bg-[var(--color-card)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)]" required />
                   </div>
                   <div className="space-y-1">
                     <label className="text-sm font-medium text-muted-foreground font-bold">Capacity</label>
-                    <input type="number" name="capacity" value={formData.capacity} onChange={handleInputChange} placeholder="Capacity" className={`w-full p-3 border rounded ${isDarkMode ? 'bg-gray-700 border-gray-600 text-white placeholder:text-gray-400' : 'bg-white placeholder:text-gray-400'}`} required />
+                    <input type="number" name="capacity" value={formData.capacity} onChange={handleInputChange} placeholder="Capacity" className="w-full p-3 border rounded bg-[var(--color-card)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)]" required />
                   </div>
                 </div>
 
                 <div className="space-y-1">
                   <label className="text-sm font-medium text-muted-foreground font-bold">Prerequisites</label>
-                  <textarea name="prerequisite" value={formData.prerequisite} onChange={handleInputChange} placeholder="Prerequisites (optional)" className={`w-full p-3 border rounded ${isDarkMode ? 'bg-gray-700 border-gray-600 text-white placeholder:text-gray-400' : 'bg-white placeholder:text-gray-400'}`} rows={3} />
+                  <textarea name="prerequisite" value={formData.prerequisite} onChange={handleInputChange} placeholder="Prerequisites (optional)" className="w-full p-3 border rounded bg-[var(--color-card)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)]" rows={3} />
                 </div>
 
                 {formData.startDate && formData.endDate && (
-                  <p className={`text-sm ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+                  <p className="text-sm text-[var(--color-primary)]">
                     Duration: {calculateNumDays(formData.startDate, formData.endDate)} day(s)
                   </p>
                 )}
@@ -326,7 +326,7 @@ const EditEventPage: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="bg-blue-600 text-white px-8 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 flex items-center gap-2 shadow-lg shadow-blue-500/20 transition-all font-semibold"
+                    className="bg-[var(--color-button-primary)] text-white px-8 py-2.5 rounded-lg hover:bg-[var(--color-button-primary)] disabled:opacity-50 flex items-center gap-2 shadow-lg transition-all font-semibold"
                   >
                     {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
                     {isSubmitting ? 'Saving Changes...' : 'Save All Changes'}
@@ -334,7 +334,7 @@ const EditEventPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => router.push('/admin/dashboard')}
-                    className={`px-8 py-2.5 rounded-lg border font-semibold transition-colors ${isDarkMode ? 'border-gray-600 text-gray-300 hover:bg-gray-700' : 'border-gray-300 text-gray-700 hover:bg-gray-100'}`}
+                    className="px-8 py-2.5 rounded-lg border font-semibold transition-colors border-[var(--color-border)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)]"
                   >
                     Cancel
                   </button>
@@ -343,15 +343,15 @@ const EditEventPage: React.FC = () => {
             </div>
 
             {/* Attendance Session Management */}
-            <div className={`rounded-lg p-6 shadow ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
-              <SessionManager eventId={Number(eventId)} />
+            <div className="rounded-lg p-6 shadow bg-[var(--color-card)]">
+              <SessionManager eventId={Number(eventId)} eventStartDate={formData.startDate} eventEndDate={formData.endDate} />
             </div>
           </div>
 
           {/* Sidebar Management */}
           <div className="space-y-6">
             <Tabs defaultValue="attendees" className="w-full">
-              <div className={`rounded-lg p-2 shadow mb-4 ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+              <div className="rounded-lg p-2 shadow mb-4 bg-[var(--color-card)]">
                 <TabsList className="grid w-full grid-cols-3">
                   <TabsTrigger value="attendees" className="rounded-md">
                     <Users className="w-4 h-4 mr-2 hidden md:block" />
@@ -368,7 +368,7 @@ const EditEventPage: React.FC = () => {
                 </TabsList>
               </div>
 
-              <div className={`rounded-lg p-6 shadow min-h-[400px] ${isDarkMode ? 'bg-gray-800' : 'bg-white'}`}>
+              <div className="rounded-lg p-6 shadow min-h-[400px] bg-[var(--color-card)]">
                 <TabsContent value="attendees" className="mt-0">
                   <AttendeeList eventId={Number(eventId)} />
                 </TabsContent>

@@ -104,7 +104,7 @@ export default function ProfilePage() {
 
   // Generate activities from actual attended sessions
   const recentActivities = stats.sessions.slice(0, 5).map((session) => ({
-    icon: <BookOpen className="w-4 h-4 text-blue-600" />,
+    icon: <BookOpen className="w-4 h-4 text-[var(--color-primary)]" />,
     title: `Attended ${session.sessionName}`,
     date: session.startTime
       ? new Date(session.startTime.toString()).toISOString().split('T')[0]
@@ -113,12 +113,12 @@ export default function ProfilePage() {
   }));
 
   return (
-    <main className="bg-gray-50 min-h-screen p-2 md:p-6">
+    <main className="bg-[var(--color-surface)] min-h-screen p-2 md:p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Navigation Header */}
         <div className="flex items-center justify-between">
           <button
-            className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+            className="flex items-center text-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors"
             onClick={() => router.push('/student/dashboard')}
           >
             <ArrowLeft className="w-5 h-5 mr-1" />
@@ -127,14 +127,14 @@ export default function ProfilePage() {
         </div>
 
         {/* Tabs */}
-        <div className="bg-white rounded-lg shadow-sm border">
+        <div className="bg-[var(--color-card)] rounded-lg shadow-sm border">
           <div className="border-b">
             <nav className="flex space-x-8 px-6" aria-label="Tabs">
               <button
                 onClick={() => setActiveTab("overview")}
                 className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === "overview"
-                  ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  ? "border-blue-600 text-[var(--color-primary)]"
+                  : "border-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-border)]"
                   }`}
               >
                 <div className="flex items-center gap-2">
@@ -145,8 +145,8 @@ export default function ProfilePage() {
               <button
                 onClick={() => setActiveTab("attendance")}
                 className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === "attendance"
-                  ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  ? "border-blue-600 text-[var(--color-primary)]"
+                  : "border-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-border)]"
                   }`}
               >
                 <div className="flex items-center gap-2">
@@ -157,8 +157,8 @@ export default function ProfilePage() {
               <button
                 onClick={() => setActiveTab("achievements")}
                 className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === "achievements"
-                  ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  ? "border-blue-600 text-[var(--color-primary)]"
+                  : "border-transparent text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:border-[var(--color-border)]"
                   }`}
               >
                 <div className="flex items-center gap-2">
@@ -180,7 +180,7 @@ export default function ProfilePage() {
                     <ProfileCard user={user} />
                   ) : (
                     <div className="flex items-center justify-center h-64">
-                      <span className="text-gray-500">No user data available.</span>
+                      <span className="text-[var(--color-text-muted)]">No user data available.</span>
                     </div>
                   )}
                 </div>
@@ -196,10 +196,10 @@ export default function ProfilePage() {
                     <CardContent className="pt-6">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm text-gray-600 mb-1">Total Credits</p>
-                          <p className="text-3xl font-bold text-blue-600">{stats.totalCredits}</p>
+                          <p className="text-sm text-[var(--color-text-muted)] mb-1">Total Credits</p>
+                          <p className="text-3xl font-bold text-[var(--color-primary)]">{stats.totalCredits}</p>
                         </div>
-                        <Award className="w-12 h-12 text-blue-400 opacity-50" />
+                        <Award className="w-12 h-12 text-[var(--color-info-light)] opacity-50" />
                       </div>
                     </CardContent>
                   </Card>
@@ -207,7 +207,7 @@ export default function ProfilePage() {
                     <CardContent className="pt-6">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm text-gray-600 mb-1">Sessions</p>
+                          <p className="text-sm text-[var(--color-text-muted)] mb-1">Sessions</p>
                           <p className="text-3xl font-bold text-green-600">{stats.sessionsAttended}</p>
                         </div>
                         <Calendar className="w-12 h-12 text-green-400 opacity-50" />
@@ -218,7 +218,7 @@ export default function ProfilePage() {
                     <CardContent className="pt-6">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm text-gray-600 mb-1">Completion</p>
+                          <p className="text-sm text-[var(--color-text-muted)] mb-1">Completion</p>
                           <p className="text-3xl font-bold text-purple-600">{Math.floor(stats.completionRate)}%</p>
                         </div>
                         <TrendingUp className="w-12 h-12 text-purple-400 opacity-50" />
@@ -231,7 +231,7 @@ export default function ProfilePage() {
                 <Card className="border-none shadow-sm">
                   <CardHeader>
                     <CardTitle className="text-xl">All Attended Sessions</CardTitle>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-[var(--color-text-muted)]">
                       {stats.sessions.length === 0
                         ? 'No sessions attended yet'
                         : `Complete history of ${stats.sessions.length} attended session${stats.sessions.length !== 1 ? 's' : ''}`}
@@ -242,50 +242,50 @@ export default function ProfilePage() {
                       <div className="space-y-3">
                         {[1, 2, 3].map((i) => (
                           <div key={i} className="animate-pulse">
-                            <div className="h-24 bg-gray-200 rounded-lg"></div>
+                            <div className="h-24 bg-[var(--color-surface-hover)] rounded-lg"></div>
                           </div>
                         ))}
                       </div>
                     ) : stats.sessions.length === 0 ? (
                       <div className="text-center py-12">
-                        <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                        <p className="text-gray-500 mb-2">No sessions attended yet</p>
-                        <p className="text-sm text-gray-400">Start attending events to earn credits!</p>
+                        <Calendar className="w-16 h-16 text-[var(--color-text-secondary)] mx-auto mb-4" />
+                        <p className="text-[var(--color-text-muted)] mb-2">No sessions attended yet</p>
+                        <p className="text-sm text-[var(--color-text-muted)]">Start attending events to earn credits!</p>
                       </div>
                     ) : (
                       <div className="space-y-4">
                         {stats.sessions.map((session) => (
                           <div
                             key={session.id}
-                            className="border rounded-lg p-4 hover:shadow-md transition-all bg-white hover:border-blue-300"
+                            className="border rounded-lg p-4 hover:shadow-md transition-all bg-[var(--color-card)] hover:border-[var(--color-info)]/40"
                           >
                             <div className="flex items-start justify-between mb-3">
                               <div className="flex-1">
-                                <h3 className="font-semibold text-lg text-gray-900">
+                                <h3 className="font-semibold text-lg text-[var(--color-text-primary)]">
                                   {session.sessionName}
                                 </h3>
                                 <div className="flex items-center gap-2 mt-2">
                                   <Badge className="bg-green-100 text-green-700 hover:bg-green-100">
                                     ✓ Attended
                                   </Badge>
-                                  <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-100">
+                                  <Badge className="bg-[var(--color-profile-icon-bg)] text-[var(--color-primary)] hover:bg-[var(--color-profile-icon-bg-hover)]">
                                     {session.credits} {session.credits === 1 ? 'Credit' : 'Credits'}
                                   </Badge>
                                 </div>
                               </div>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-gray-600">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-[var(--color-text-muted)]">
                               <div className="flex items-center gap-2">
-                                <MapPin className="w-4 h-4 text-gray-400" />
+                                <MapPin className="w-4 h-4 text-[var(--color-text-muted)]" />
                                 <span>{session.location}</span>
                               </div>
                               <div className="flex items-center gap-2">
-                                <Calendar className="w-4 h-4 text-gray-400" />
+                                <Calendar className="w-4 h-4 text-[var(--color-text-muted)]" />
                                 <span>{session.startTime ? formatDate(session.startTime) : 'N/A'}</span>
                               </div>
                               <div className="flex items-center gap-2">
-                                <Clock className="w-4 h-4 text-gray-400" />
+                                <Clock className="w-4 h-4 text-[var(--color-text-muted)]" />
                                 <span>
                                   {session.startTime && new Date(session.startTime).toLocaleTimeString('en-US', {
                                     hour: '2-digit',
@@ -323,11 +323,11 @@ export default function ProfilePage() {
                     <CardContent>
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm text-gray-600 mb-2">Highest credits earned in a single session</p>
+                          <p className="text-sm text-[var(--color-text-muted)] mb-2">Highest credits earned in a single session</p>
                           <p className="text-4xl font-bold text-orange-600 mb-2">
                             {stats.userPersonalBest.credits} credits
                           </p>
-                          <p className="text-sm text-gray-700">
+                          <p className="text-sm text-[var(--color-text-secondary)]">
                             From: {stats.sessions.find(s => s.id === stats.userPersonalBest.sessionId)?.sessionName || 'Unknown Session'}
                           </p>
                         </div>
@@ -338,9 +338,9 @@ export default function ProfilePage() {
                 ) : (
                   <Card className="border-none shadow-sm">
                     <CardContent className="pt-6 text-center py-12">
-                      <Trophy className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                      <p className="text-gray-500">No achievements yet</p>
-                      <p className="text-sm text-gray-400 mt-2">Attend sessions to unlock achievements!</p>
+                      <Trophy className="w-16 h-16 text-[var(--color-text-secondary)] mx-auto mb-4" />
+                      <p className="text-[var(--color-text-muted)]">No achievements yet</p>
+                      <p className="text-sm text-[var(--color-text-muted)] mt-2">Attend sessions to unlock achievements!</p>
                     </CardContent>
                   </Card>
                 )}
@@ -351,15 +351,16 @@ export default function ProfilePage() {
                     <CardTitle>Milestones</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-4">
+                    <div className="divide-y divide-[var(--color-border-light)]">
                       {/* First Session */}
-                      <div className={`flex items-center gap-4 p-4 rounded-lg ${stats.sessionsAttended >= 1 ? 'bg-green-50 border border-green-200' : 'bg-gray-50'}`}>
-                        <div className={`p-3 rounded-full ${stats.sessionsAttended >= 1 ? 'bg-green-100' : 'bg-gray-200'}`}>
-                          <Star className={`w-6 h-6 ${stats.sessionsAttended >= 1 ? 'text-green-600' : 'text-gray-400'}`} />
+                      <div className={`flex items-center gap-4 py-4 rounded-lg px-2 ${stats.sessionsAttended >= 1 ? 'bg-green-50/50' : 'bg-transparent'}`}>
+                        <div className={`p-3 rounded-full ${stats.sessionsAttended >= 1 ? 'bg-green-100' : 'bg-[var(--color-surface-hover)]'}`}>
+                        <div className={`p-3 rounded-full ${stats.sessionsAttended >= 1 ? 'bg-green-100' : 'bg-[var(--color-profile-icon-bg)]'}`}>
+                          <Star className={`w-6 h-6 ${stats.sessionsAttended >= 1 ? 'text-green-600' : 'text-[var(--color-text-muted)]'}`} />
                         </div>
                         <div className="flex-1">
                           <h4 className="font-semibold">First Steps</h4>
-                          <p className="text-sm text-gray-600">Attend your first session</p>
+                          <p className="text-sm text-[var(--color-text-muted)]">Attend your first session</p>
                         </div>
                         {stats.sessionsAttended >= 1 && (
                           <Badge className="bg-green-600 text-white">Unlocked!</Badge>
@@ -367,27 +368,27 @@ export default function ProfilePage() {
                       </div>
 
                       {/* 5 Sessions */}
-                      <div className={`flex items-center gap-4 p-4 rounded-lg ${stats.sessionsAttended >= 5 ? 'bg-blue-50 border border-blue-200' : 'bg-gray-50'}`}>
-                        <div className={`p-3 rounded-full ${stats.sessionsAttended >= 5 ? 'bg-blue-100' : 'bg-gray-200'}`}>
-                          <Award className={`w-6 h-6 ${stats.sessionsAttended >= 5 ? 'text-blue-600' : 'text-gray-400'}`} />
+                      <div className={`flex items-center gap-4 py-4 rounded-lg px-2 ${stats.sessionsAttended >= 5 ? 'bg-blue-50/50' : 'bg-transparent'}`}>
+                        <div className={`p-3 rounded-full ${stats.sessionsAttended >= 5 ? 'bg-[var(--color-profile-icon-bg)]' : 'bg-[var(--color-profile-icon-bg)]'}`}>
+                          <Award className={`w-6 h-6 ${stats.sessionsAttended >= 5 ? 'text-[var(--color-primary)]' : 'text-[var(--color-text-muted)]'}`} />
                         </div>
                         <div className="flex-1">
                           <h4 className="font-semibold">Getting Started</h4>
-                          <p className="text-sm text-gray-600">Attend 5 sessions ({stats.sessionsAttended}/5)</p>
+                          <p className="text-sm text-[var(--color-text-muted)]">Attend 5 sessions ({stats.sessionsAttended}/5)</p>
                         </div>
                         {stats.sessionsAttended >= 5 && (
-                          <Badge className="bg-blue-600 text-white">Unlocked!</Badge>
+                          <Badge className="bg-[var(--color-button-primary)] text-white">Unlocked!</Badge>
                         )}
                       </div>
 
                       {/* 10 Sessions */}
-                      <div className={`flex items-center gap-4 p-4 rounded-lg ${stats.sessionsAttended >= 10 ? 'bg-purple-50 border border-purple-200' : 'bg-gray-50'}`}>
-                        <div className={`p-3 rounded-full ${stats.sessionsAttended >= 10 ? 'bg-purple-100' : 'bg-gray-200'}`}>
-                          <Trophy className={`w-6 h-6 ${stats.sessionsAttended >= 10 ? 'text-purple-600' : 'text-gray-400'}`} />
+                      <div className={`flex items-center gap-4 py-4 rounded-lg px-2 ${stats.sessionsAttended >= 10 ? 'bg-purple-50/50' : 'bg-transparent'}`}>
+                        <div className={`p-3 rounded-full ${stats.sessionsAttended >= 10 ? 'bg-purple-100' : 'bg-[var(--color-profile-icon-bg)]'}`}>
+                          <Trophy className={`w-6 h-6 ${stats.sessionsAttended >= 10 ? 'text-purple-600' : 'text-[var(--color-text-muted)]'}`} />
                         </div>
                         <div className="flex-1">
                           <h4 className="font-semibold">Dedicated Learner</h4>
-                          <p className="text-sm text-gray-600">Attend 10 sessions ({stats.sessionsAttended}/10)</p>
+                          <p className="text-sm text-[var(--color-text-muted)]">Attend 10 sessions ({stats.sessionsAttended}/10)</p>
                         </div>
                         {stats.sessionsAttended >= 10 && (
                           <Badge className="bg-purple-600 text-white">Unlocked!</Badge>
@@ -395,18 +396,19 @@ export default function ProfilePage() {
                       </div>
 
                       {/* 50 Credits */}
-                      <div className={`flex items-center gap-4 p-4 rounded-lg ${stats.totalCredits >= 50 ? 'bg-yellow-50 border border-yellow-200' : 'bg-gray-50'}`}>
-                        <div className={`p-3 rounded-full ${stats.totalCredits >= 50 ? 'bg-yellow-100' : 'bg-gray-200'}`}>
-                          <Award className={`w-6 h-6 ${stats.totalCredits >= 50 ? 'text-yellow-600' : 'text-gray-400'}`} />
+                      <div className={`flex items-center gap-4 py-4 rounded-lg px-2 ${stats.totalCredits >= 50 ? 'bg-yellow-50/50' : 'bg-transparent'}`}>
+                        <div className={`p-3 rounded-full ${stats.totalCredits >= 50 ? 'bg-yellow-100' : 'bg-[var(--color-profile-icon-bg)]'}`}>
+                          <Award className={`w-6 h-6 ${stats.totalCredits >= 50 ? 'text-yellow-600' : 'text-[var(--color-text-muted)]'}`} />
                         </div>
                         <div className="flex-1">
                           <h4 className="font-semibold">Credit Master</h4>
-                          <p className="text-sm text-gray-600">Earn 50 credits ({stats.totalCredits}/50)</p>
+                          <p className="text-sm text-[var(--color-text-muted)]">Earn 50 credits ({stats.totalCredits}/50)</p>
                         </div>
                         {stats.totalCredits >= 50 && (
                           <Badge className="bg-yellow-600 text-white">Unlocked!</Badge>
                         )}
                       </div>
+                    </div>
                     </div>
                   </CardContent>
                 </Card>

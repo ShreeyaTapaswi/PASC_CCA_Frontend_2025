@@ -207,7 +207,7 @@ const AdminDashboard = () => {
               Announcements
             </Button>
             <Button
-              className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2"
+              className="bg-[var(--color-button-primary)] hover:bg-[var(--color-button-primary-hover)] text-white flex items-center gap-2"
               onClick={() => router.push("/admin/createEvent")}
             >
               <Plus className="h-4 w-4" />
@@ -242,7 +242,7 @@ const AdminDashboard = () => {
 
         {/* ── Quick Summary Cards ── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
+          <div className="bg-gradient-to-r from-[var(--color-surface-hover)] to-[var(--color-surface)] dark:from-[var(--color-surface)]/20 dark:to-[var(--color-surface-hover)]/20 rounded-xl p-6 border border-[var(--color-info)]/30 dark:border-[var(--color-info)]/30">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground mb-1">
@@ -256,7 +256,7 @@ const AdminDashboard = () => {
                   Ongoing + Upcoming
                 </p>
               </div>
-              <BarChart3 className="w-12 h-12 text-blue-500 opacity-50" />
+              <BarChart3 className="w-12 h-12 text-[var(--color-info)] opacity-50" />
             </div>
           </div>
           <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 rounded-xl p-6 border border-green-200 dark:border-green-800">
@@ -280,12 +280,12 @@ const AdminDashboard = () => {
         {/* ── Metric Cards ── */}
         {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <MetricCard
-            icon={<Calendar className="w-6 h-6 text-blue-500" />}
+            icon={<Calendar className="w-6 h-6 text-[var(--color-info)]" />}
             title="Total Events"
             value={(analytics?.totalEvents ?? 0).toString()}
             subtitle={`${analytics?.upcomingEvents ?? 0} upcoming`}
             loading={false}
-            color="bg-blue-50 dark:bg-blue-950/20"
+            color="bg-[var(--color-surface-hover)]/20"
           />
           <MetricCard
             icon={<Users className="w-6 h-6 text-green-500" />}
@@ -318,8 +318,8 @@ const AdminDashboard = () => {
           <div className="bg-card rounded-xl border border-border p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold text-lg">Upcoming Events</h3>
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
-                <Calendar className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 bg-[var(--color-surface-hover)]/20 rounded-lg flex items-center justify-center">
+                <Calendar className="w-6 h-6 text-[var(--color-primary)]" />
               </div>
             </div>
             <p className="text-4xl font-bold text-foreground">
@@ -342,8 +342,8 @@ const AdminDashboard = () => {
           <div className="bg-card rounded-xl border border-border p-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold text-lg">Completed Events</h3>
-              <div className="w-12 h-12 bg-gray-100 dark:bg-gray-900/20 rounded-lg flex items-center justify-center">
-                <BarChart3 className="w-6 h-6 text-gray-600" />
+              <div className="w-12 h-12 bg-[var(--color-surface)]/20 rounded-lg flex items-center justify-center">
+                <BarChart3 className="w-6 h-6 text-[var(--color-text-muted)]" />
               </div>
             </div>
             <p className="text-4xl font-bold text-foreground">
@@ -370,10 +370,10 @@ const AdminDashboard = () => {
                     className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center font-bold ${index === 0
                         ? "bg-yellow-400 text-yellow-900"
                         : index === 1
-                          ? "bg-gray-300 text-gray-900"
+                          ? "bg-[var(--color-border)] text-[var(--color-text-primary)]"
                           : index === 2
                             ? "bg-orange-400 text-orange-900"
-                            : "bg-blue-100 text-blue-900"
+                            : "bg-[var(--color-surface-hover)] text-[var(--color-primary)]"
                       }`}
                   >
                     {index + 1}
@@ -416,7 +416,7 @@ const AdminDashboard = () => {
                   key={index}
                   className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent transition-colors"
                 >
-                  <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0" />
+                  <div className="w-2 h-2 bg-[var(--color-info)] rounded-full mt-2 flex-shrink-0" />
                   <div className="flex-1">
                     <p className="text-foreground">{activity.description}</p>
                     <p className="text-xs text-muted-foreground mt-1">

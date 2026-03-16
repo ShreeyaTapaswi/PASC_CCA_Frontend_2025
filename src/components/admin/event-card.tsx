@@ -19,12 +19,12 @@ export const EventCard = ({ onRefresh, ...event }: EventCardProps) => {
 
   const getStatusBadge = (status: Event["status"]) => {
     const variants: Record<string, string> = {
-      UPCOMING: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-      COMPLETED: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200",
+      UPCOMING: "bg-[var(--color-surface-hover)] text-[var(--color-primary)]",
+      COMPLETED: "bg-[var(--color-surface-hover)] text-[var(--color-primary)]",
       ONGOING: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
     };
     return (
-      <Badge className={variants[status] || "bg-gray-100 text-gray-800"}>
+      <Badge className={variants[status] || "bg-[var(--color-surface)] text-[var(--color-text-primary)]"}>
         {status}
       </Badge>
     );

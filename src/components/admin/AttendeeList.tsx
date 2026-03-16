@@ -123,7 +123,7 @@ export function AttendeeList({ eventId }: AttendeeListProps) {
                                     </div>
                                 </td>
                                 <td className="px-4 py-3">
-                                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${attendee.status === 'ATTENDING' ? 'bg-green-100 text-green-700 dark:bg-green-900/30' : 'bg-gray-100 text-gray-700'
+                                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${attendee.status === 'ATTENDING' ? 'bg-green-100 text-green-700 dark:bg-green-900/30' : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)]'
                                         }`}>
                                         {attendee.status}
                                     </span>

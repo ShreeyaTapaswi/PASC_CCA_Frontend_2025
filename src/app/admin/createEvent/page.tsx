@@ -201,7 +201,7 @@ const Page: React.FC = () => {
         {/* Navigation Header */}
         <div className="mb-6">
           <button
-            className={`flex items-center text-blue-600 hover:text-blue-800 transition-colors ${isDarkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-800'
+            className={`flex items-center text-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors ${isDarkMode ? 'text-[var(--color-info-light)] hover:text-[var(--color-info-lighter)]' : 'text-[var(--color-primary)] hover:text-[var(--color-primary)]'
               }`}
             onClick={() => router.push('/admin/dashboard')}
           >
@@ -212,15 +212,15 @@ const Page: React.FC = () => {
 
         {/* Animated Header */}
         <div className={`rounded-2xl shadow-2xl mb-8 overflow-hidden backdrop-blur-xl border transition-all duration-300 hover:shadow-3xl ${isDarkMode
-          ? 'bg-gray-800/60 border-gray-700/50 shadow-black/20'
-          : 'bg-white/60 border-white/50 shadow-blue-500/10'
+          ? 'bg-[var(--color-surface)]/60 border-[var(--color-border)]/50 shadow-black/20'
+          : 'bg-[var(--color-card)]/60 border-white/50 shadow-blue-500/10'
           }`}>
           <div className="p-8 lg:p-10">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
               <div className="space-y-2">
                 <div className="flex items-center gap-3 mb-2">
 
-                  <p className={`text-3xl lg:text-4xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'
+                  <p className={`text-3xl lg:text-4xl font-bold ${isDarkMode ? 'text-white' : 'text-[var(--color-text-primary)]'
                     }`}>
                     Create New Event
                   </p>
@@ -231,7 +231,7 @@ const Page: React.FC = () => {
                 <button
                   onClick={toggleDarkMode}
                   className={`group p-3 rounded-xl transition-all duration-300 hover:scale-110 active:scale-95 ${isDarkMode
-                    ? 'bg-gradient-to-r from-amber-400 to-orange-500 text-gray-900 shadow-lg shadow-amber-400/25 hover:shadow-amber-400/40'
+                    ? 'bg-gradient-to-r from-amber-400 to-orange-500 text-[var(--color-text-primary)] shadow-lg shadow-amber-400/25 hover:shadow-amber-400/40'
                     : 'bg-gradient-to-r from-slate-700 to-gray-800 text-white shadow-lg shadow-gray-700/25 hover:shadow-gray-700/40'
                     }`}
                   title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
@@ -244,8 +244,8 @@ const Page: React.FC = () => {
                 </button>
 
                 <div className={`flex items-center gap-3 px-5 py-3 rounded-xl transition-all duration-300 ${isDarkMode
-                  ? 'bg-blue-900/30 text-blue-300 border border-blue-700/30'
-                  : 'bg-blue-100 text-blue-700 border border-blue-200'
+                  ? 'bg-[var(--color-surface)]/30 text-[var(--color-info-lighter)] border border-[var(--color-info)]/40/30'
+                  : 'bg-[var(--color-surface-hover)] text-[var(--color-primary)] border border-[var(--color-info)]/30'
                   }`}>
                   <Calendar className="w-5 h-5" />
                   <span className="font-semibold">ACM Student Chapter</span>
@@ -257,14 +257,14 @@ const Page: React.FC = () => {
 
         {/* Main Form Card */}
         <div className={`rounded-2xl shadow-2xl overflow-hidden backdrop-blur-xl border transition-all duration-300 ${isDarkMode
-          ? 'bg-gray-800/60 border-gray-700/50 shadow-black/20'
-          : 'bg-white/70 border-white/50 shadow-blue-500/10'
+          ? 'bg-[var(--color-surface)]/60 border-[var(--color-border)]/50 shadow-black/20'
+          : 'bg-[var(--color-card)]/70 border-white/50 shadow-blue-500/10'
           }`}>
           <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="p-8 lg:p-10">
             <div className="grid gap-8">
               {/* Event Title */}
               <div className="group space-y-3">
-                <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-gray-200 group-hover:text-blue-400' : 'text-gray-700 group-hover:text-blue-600'
+                <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-[var(--color-text-secondary)] group-hover:text-[var(--color-info-light)]' : 'text-[var(--color-text-secondary)] group-hover:text-[var(--color-primary)]'
                   }`}>
                   <div className={`p-1.5 rounded-lg ${isDarkMode ? 'bg-blue-500/20' : 'bg-blue-500/10'}`}>
                     <FileText className="w-4 h-4" />
@@ -277,9 +277,9 @@ const Page: React.FC = () => {
                   value={formData.title}
                   onChange={handleInputChange}
                   placeholder="Enter an engaging and memorable event title..."
-                  className={`w-full px-5 py-4 rounded-xl border-2 transition-all duration-300 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 focus:scale-[1.02] ${isDarkMode
-                    ? 'bg-gray-700/50 border-gray-600 text-white placeholder-gray-400 hover:bg-gray-700/70 hover:border-gray-500'
-                    : 'bg-white/70 border-gray-200 text-gray-900 placeholder-gray-500 hover:bg-white/90 hover:border-gray-300'
+                  className={`w-full px-5 py-4 rounded-xl border-2 transition-all duration-300 focus:ring-4 focus:ring-[var(--color-input-focus)]/20 focus:border-[var(--color-input-focus)] focus:scale-[1.02] ${isDarkMode
+                    ? 'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border)]'
+                    : 'bg-[var(--color-card)]/70 border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-gray-500 hover:bg-[var(--color-card)]/90 hover:border-[var(--color-border)]'
                     }`}
                   required
                 />
@@ -287,7 +287,7 @@ const Page: React.FC = () => {
 
               {/* Description */}
               <div className="group space-y-3">
-                <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-gray-200 group-hover:text-purple-400' : 'text-gray-700 group-hover:text-purple-600'
+                <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-[var(--color-text-secondary)] group-hover:text-purple-400' : 'text-[var(--color-text-secondary)] group-hover:text-purple-600'
                   }`}>
                   <div className={`p-1.5 rounded-lg ${isDarkMode ? 'bg-purple-500/20' : 'bg-purple-500/10'}`}>
                     <FileText className="w-4 h-4" />
@@ -301,8 +301,8 @@ const Page: React.FC = () => {
                   placeholder="Describe what makes this event special and why people should attend..."
                   rows={5}
                   className={`w-full px-5 py-4 rounded-xl border-2 transition-all duration-300 focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 focus:scale-[1.01] resize-none ${isDarkMode
-                    ? 'bg-gray-700/50 border-gray-600 text-white placeholder-gray-400 hover:bg-gray-700/70 hover:border-gray-500'
-                    : 'bg-white/70 border-gray-200 text-gray-900 placeholder-gray-500 hover:bg-white/90 hover:border-gray-300'
+                    ? 'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border)]'
+                    : 'bg-[var(--color-card)]/70 border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-gray-500 hover:bg-[var(--color-card)]/90 hover:border-[var(--color-border)]'
                     }`}
                   required
                 />
@@ -311,7 +311,7 @@ const Page: React.FC = () => {
               {/* Date Range */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="group space-y-3">
-                  <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-gray-200 group-hover:text-green-400' : 'text-gray-700 group-hover:text-green-600'
+                  <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-[var(--color-text-secondary)] group-hover:text-green-400' : 'text-[var(--color-text-secondary)] group-hover:text-green-600'
                     }`}>
                     <div className={`p-1.5 rounded-lg ${isDarkMode ? 'bg-green-500/20' : 'bg-green-500/10'}`}>
                       <Calendar className="w-4 h-4" />
@@ -324,15 +324,15 @@ const Page: React.FC = () => {
                     value={formData.startDate}
                     onChange={handleInputChange}
                     className={`w-full px-5 py-4 rounded-xl border-2 transition-all duration-300 focus:ring-4 focus:ring-green-500/20 focus:border-green-500 focus:scale-[1.02] ${isDarkMode
-                      ? 'bg-gray-700/50 border-gray-600 text-white hover:bg-gray-700/70 hover:border-gray-500'
-                      : 'bg-white/70 border-gray-200 text-gray-900 hover:bg-white/90 hover:border-gray-300'
+                      ? 'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-primary)] hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border)]'
+                      : 'bg-[var(--color-card)]/70 border-[var(--color-border)] text-[var(--color-text-primary)] hover:bg-[var(--color-card)]/90 hover:border-[var(--color-border)]'
                       }`}
                     required
                   />
                 </div>
 
                 <div className="group space-y-3">
-                  <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-gray-200 group-hover:text-green-400' : 'text-gray-700 group-hover:text-green-600'
+                  <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-[var(--color-text-secondary)] group-hover:text-green-400' : 'text-[var(--color-text-secondary)] group-hover:text-green-600'
                     }`}>
                     <div className={`p-1.5 rounded-lg ${isDarkMode ? 'bg-green-500/20' : 'bg-green-500/10'}`}>
                       <Calendar className="w-4 h-4" />
@@ -345,8 +345,8 @@ const Page: React.FC = () => {
                     value={formData.endDate}
                     onChange={handleInputChange}
                     className={`w-full px-5 py-4 rounded-xl border-2 transition-all duration-300 focus:ring-4 focus:ring-green-500/20 focus:border-green-500 focus:scale-[1.02] ${isDarkMode
-                      ? 'bg-gray-700/50 border-gray-600 text-white hover:bg-gray-700/70 hover:border-gray-500'
-                      : 'bg-white/70 border-gray-200 text-gray-900 hover:bg-white/90 hover:border-gray-300'
+                      ? 'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-primary)] hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border)]'
+                      : 'bg-[var(--color-card)]/70 border-[var(--color-border)] text-[var(--color-text-primary)] hover:bg-[var(--color-card)]/90 hover:border-[var(--color-border)]'
                       }`}
                     required
                   />
@@ -355,7 +355,7 @@ const Page: React.FC = () => {
 
               {/* Location */}
               <div className="group space-y-3">
-                <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-gray-200 group-hover:text-red-400' : 'text-gray-700 group-hover:text-red-600'
+                <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-[var(--color-text-secondary)] group-hover:text-red-400' : 'text-[var(--color-text-secondary)] group-hover:text-red-600'
                   }`}>
                   <div className={`p-1.5 rounded-lg ${isDarkMode ? 'bg-red-500/20' : 'bg-red-500/10'}`}>
                     <MapPin className="w-4 h-4" />
@@ -369,8 +369,8 @@ const Page: React.FC = () => {
                   onChange={handleInputChange}
                   placeholder="Where will this amazing event take place?"
                   className={`w-full px-5 py-4 rounded-xl border-2 transition-all duration-300 focus:ring-4 focus:ring-red-500/20 focus:border-red-500 focus:scale-[1.02] ${isDarkMode
-                    ? 'bg-gray-700/50 border-gray-600 text-white placeholder-gray-400 hover:bg-gray-700/70 hover:border-gray-500'
-                    : 'bg-white/70 border-gray-200 text-gray-900 placeholder-gray-500 hover:bg-white/90 hover:border-gray-300'
+                    ? 'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border)]'
+                    : 'bg-[var(--color-card)]/70 border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-gray-500 hover:bg-[var(--color-card)]/90 hover:border-[var(--color-border)]'
                     }`}
                   required
                 />
@@ -379,7 +379,7 @@ const Page: React.FC = () => {
               {/* Credits and Capacity */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="group space-y-3">
-                  <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-gray-200 group-hover:text-yellow-400' : 'text-gray-700 group-hover:text-yellow-600'
+                  <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-[var(--color-text-secondary)] group-hover:text-yellow-400' : 'text-[var(--color-text-secondary)] group-hover:text-yellow-600'
                     }`}>
                     <div className={`p-1.5 rounded-lg ${isDarkMode ? 'bg-yellow-500/20' : 'bg-yellow-500/10'}`}>
                       <Award className="w-4 h-4" />
@@ -395,15 +395,15 @@ const Page: React.FC = () => {
                     min="0"
                     step="0.5"
                     className={`w-full px-5 py-4 rounded-xl border-2 transition-all duration-300 focus:ring-4 focus:ring-yellow-500/20 focus:border-yellow-500 focus:scale-[1.02] ${isDarkMode
-                      ? 'bg-gray-700/50 border-gray-600 text-white placeholder-gray-400 hover:bg-gray-700/70 hover:border-gray-500'
-                      : 'bg-white/70 border-gray-200 text-gray-900 placeholder-gray-500 hover:bg-white/90 hover:border-gray-300'
+                      ? 'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border)]'
+                      : 'bg-[var(--color-card)]/70 border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-gray-500 hover:bg-[var(--color-card)]/90 hover:border-[var(--color-border)]'
                       }`}
                     required
                   />
                 </div>
 
                 <div className="group space-y-3">
-                  <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-gray-200 group-hover:text-indigo-400' : 'text-gray-700 group-hover:text-indigo-600'
+                  <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-[var(--color-text-secondary)] group-hover:text-indigo-400' : 'text-[var(--color-text-secondary)] group-hover:text-indigo-600'
                     }`}>
                     <div className={`p-1.5 rounded-lg ${isDarkMode ? 'bg-indigo-500/20' : 'bg-indigo-500/10'}`}>
                       <Users className="w-4 h-4" />
@@ -418,8 +418,8 @@ const Page: React.FC = () => {
                     placeholder="e.g., 50"
                     min="1"
                     className={`w-full px-5 py-4 rounded-xl border-2 transition-all duration-300 focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 focus:scale-[1.02] ${isDarkMode
-                      ? 'bg-gray-700/50 border-gray-600 text-white placeholder-gray-400 hover:bg-gray-700/70 hover:border-gray-500'
-                      : 'bg-white/70 border-gray-200 text-gray-900 placeholder-gray-500 hover:bg-white/90 hover:border-gray-300'
+                      ? 'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border)]'
+                      : 'bg-[var(--color-card)]/70 border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-gray-500 hover:bg-[var(--color-card)]/90 hover:border-[var(--color-border)]'
                       }`}
                     required
                   />
@@ -428,7 +428,7 @@ const Page: React.FC = () => {
 
               {/* Prerequisites */}
               <div className="group space-y-3">
-                <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-gray-200 group-hover:text-pink-400' : 'text-gray-700 group-hover:text-pink-600'
+                <label className={`flex items-center gap-3 text-sm font-bold uppercase tracking-wider transition-colors ${isDarkMode ? 'text-[var(--color-text-secondary)] group-hover:text-pink-400' : 'text-[var(--color-text-secondary)] group-hover:text-pink-600'
                   }`}>
                   <div className={`p-1.5 rounded-lg ${isDarkMode ? 'bg-pink-500/20' : 'bg-pink-500/10'}`}>
                     <FileText className="w-4 h-4" />
@@ -442,8 +442,8 @@ const Page: React.FC = () => {
                   placeholder="Any requirements, skills, or knowledge needed for attendees..."
                   rows={4}
                   className={`w-full px-5 py-4 rounded-xl border-2 transition-all duration-300 focus:ring-4 focus:ring-pink-500/20 focus:border-pink-500 focus:scale-[1.01] resize-none ${isDarkMode
-                    ? 'bg-gray-700/50 border-gray-600 text-white placeholder-gray-400 hover:bg-gray-700/70 hover:border-gray-500'
-                    : 'bg-white/70 border-gray-200 text-gray-900 placeholder-gray-500 hover:bg-white/90 hover:border-gray-300'
+                    ? 'bg-[var(--color-surface)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-[var(--color-text-muted)] hover:bg-[var(--color-surface-hover)] hover:border-[var(--color-border)]'
+                    : 'bg-[var(--color-card)]/70 border-[var(--color-border)] text-[var(--color-text-primary)] placeholder-gray-500 hover:bg-[var(--color-card)]/90 hover:border-[var(--color-border)]'
                     }`}
                 />
               </div>
@@ -489,7 +489,7 @@ const Page: React.FC = () => {
                 type="submit"
                 size="lg"
                 disabled={isSubmitting}
-                className="bg-blue-500 text-lg py-2 px-4 text-white hover:bg-blue-600 w-full"
+                className="bg-blue-500 text-lg py-2 px-4 text-white hover:bg-[var(--color-button-primary)] w-full"
               >
                 <Plus className="h-6 w-6 mr-2" />
                 {isSubmitting ? 'Creating Event...' : 'Create Event'}

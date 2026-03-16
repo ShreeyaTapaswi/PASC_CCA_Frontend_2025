@@ -95,11 +95,11 @@ export default function CalendarPage() {
         </div>
 
         {/* Info Card */}
-        <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6">
+        <div className="bg-[var(--color-surface-hover)]/20 border border-[var(--color-info)]/30 dark:border-[var(--color-info)]/30 rounded-xl p-6">
           <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
             How to use Calendar Integration
           </h3>
-          <ul className="space-y-2 text-sm text-blue-800 dark:text-blue-200">
+          <ul className="space-y-2 text-sm text-[var(--color-primary)]">
             <li className="flex items-start gap-2">
               <span className="font-bold">1.</span>
               <span>Click on any event below to get calendar links</span>
@@ -172,7 +172,7 @@ export default function CalendarPage() {
                           href={calendarLinks.google}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                          className="flex items-center gap-2 px-4 py-2 bg-[var(--color-button-primary)] text-white rounded-lg hover:bg-[var(--color-button-primary-hover)] transition-colors"
                         >
                           <ExternalLink className="w-4 h-4" />
                           Google Calendar
@@ -181,7 +181,7 @@ export default function CalendarPage() {
                           href={calendarLinks.outlook}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                          className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-[var(--color-button-primary)] transition-colors"
                         >
                           <ExternalLink className="w-4 h-4" />
                           Outlook
@@ -189,7 +189,7 @@ export default function CalendarPage() {
                         <a
                           href={calendarLinks.ical}
                           download
-                          className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+                          className="flex items-center gap-2 px-4 py-2 bg-[var(--color-surface)] text-white rounded-lg hover:bg-[var(--color-surface-hover)] transition-colors"
                         >
                           <Download className="w-4 h-4" />
                           Download .ics

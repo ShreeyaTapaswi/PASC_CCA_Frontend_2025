@@ -146,7 +146,7 @@ export function NotificationBell() {
 
       {unreadCount > 0 && (
         <span
-          className='absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-xs font-bold leading-none border-2 border-white dark:border-gray-900 shadow-md z-[100] pointer-events-none'
+          className='absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-xs font-bold leading-none border-2 border-[var(--color-card)] shadow-md z-[100] pointer-events-none'
           aria-hidden
         >
           {unreadCount > 99 ? '99+' : unreadCount > 9 ? '9+' : unreadCount}

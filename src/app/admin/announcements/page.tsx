@@ -170,8 +170,8 @@ export default function AdminAnnouncementsPage() {
 
   const getPriorityColor = (priority: AnnouncementPriority) => {
     switch (priority) {
-      case 'LOW': return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
-      case 'NORMAL': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
+      case 'LOW': return 'bg-[var(--color-surface)] text-[var(--color-text-primary)]';
+      case 'NORMAL': return 'bg-[var(--color-surface-hover)] text-[var(--color-primary)]';
       case 'HIGH': return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
       case 'URGENT': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
     }
@@ -266,9 +266,9 @@ export default function AdminAnnouncementsPage() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => handleEdit(announcement)}
-                        className="p-2 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                        className="p-2 hover:bg-[var(--color-surface-hover)]/20 rounded-lg transition-colors"
                       >
-                        <Edit className="w-4 h-4 text-blue-600" />
+                        <Edit className="w-4 h-4 text-[var(--color-primary)]" />
                       </button>
                       <button
                         onClick={() => handleDelete(announcement.id)}
@@ -319,8 +319,8 @@ export default function AdminAnnouncementsPage() {
               <label className="block text-sm font-medium mb-2">Priority</label>
               <div className="flex flex-wrap gap-2">
                 {[
-                  { value: 'LOW', label: 'Low', color: 'bg-gray-100 text-gray-800 hover:bg-gray-200 border-gray-200' },
-                  { value: 'NORMAL', label: 'Normal', color: 'bg-blue-100 text-blue-800 hover:bg-blue-200 border-blue-200' },
+                  { value: 'LOW', label: 'Low', color: 'bg-[var(--color-surface)] text-[var(--color-text-primary)] hover:bg-[var(--color-surface-hover)] border-[var(--color-border)]' },
+                  { value: 'NORMAL', label: 'Normal', color: 'bg-[var(--color-surface-hover)] text-[var(--color-primary)] hover:bg-[var(--color-surface-hover)] border-[var(--color-info)]/30' },
                   { value: 'HIGH', label: 'High', color: 'bg-orange-100 text-orange-800 hover:bg-orange-200 border-orange-200' },
                   { value: 'URGENT', label: 'Urgent', color: 'bg-red-100 text-red-800 hover:bg-red-200 border-red-200' }
                 ].map((priority) => (
@@ -332,7 +332,7 @@ export default function AdminAnnouncementsPage() {
                       "px-3 py-1.5 rounded-lg text-sm font-medium border transition-all",
                       formData.priority === priority.value
                         ? `${priority.color} ring-2 ring-offset-1 ring-gray-400 border-transparent`
-                        : "bg-transparent border-gray-200 text-gray-600 hover:bg-gray-50"
+                        : "bg-transparent border-[var(--color-border)] text-[var(--color-text-muted)] hover:bg-[var(--color-surface)]"
                     )}
                   >
                     {priority.label}

@@ -2,12 +2,19 @@
 import { EventWithRsvp } from '@/types/events';
 import { useState } from 'react';
 import { EventCard } from '@/components/student/event-card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, ChevronLeft, ChevronRight, Inbox } from 'lucide-react';
 
 const PAGE_SIZE = 6;
 
-// ---------- Reusable Pagination bar ----------
+const TABS = [
+  { value: 'all-events', label: 'All Events' },
+  { value: 'my-events', label: 'My Events' },
+  { value: 'upcoming', label: 'Upcoming' },
+  { value: 'ongoing', label: 'Ongoing' },
+  { value: 'completed', label: 'Completed' },
+] as const;
+
+// ---------- Reusable Pagination ----------
 function Pagination({
   currentPage,
   totalPages,
@@ -36,18 +43,18 @@ function Pagination({
   };
 
   return (
-    <div className='flex items-center justify-center gap-1 mt-8'>
+    <div className="flex items-center justify-center gap-1.5 mt-8">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className='flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors'
+        className="flex items-center gap-1 px-3.5 py-2 rounded-xl text-sm font-medium border border-[var(--color-border-light)] bg-[var(--color-card)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
       >
-        <ChevronLeft className='w-4 h-4' /> Prev
+        <ChevronLeft className="w-4 h-4" /> Prev
       </button>
 
       {getPageNumbers().map((page, idx) =>
         page === '...' ? (
-          <span key={'dots-' + idx} className='px-2 py-2 text-gray-400 text-sm'>
+          <span key={'dots-' + idx} className="px-2 py-2 text-[var(--color-text-muted)] text-sm select-none">
             …
           </span>
         ) : (
@@ -55,10 +62,10 @@ function Pagination({
             key={page}
             onClick={() => onPageChange(page)}
             className={
-              'w-10 h-10 rounded-lg text-sm font-medium transition-colors border ' +
+              'w-10 h-10 rounded-xl text-sm font-medium transition-all border ' +
               (currentPage === page
-                ? 'bg-blue-600 text-white border-blue-600'
-                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50')
+                ? 'bg-[var(--color-button-primary)] text-white border-transparent shadow-sm'
+                : 'bg-[var(--color-card)] text-[var(--color-text-secondary)] border-[var(--color-border-light)] hover:bg-[var(--color-surface)]')
             }
           >
             {page}
@@ -69,9 +76,9 @@ function Pagination({
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className='flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors'
+        className="flex items-center gap-1 px-3.5 py-2 rounded-xl text-sm font-medium border border-[var(--color-border-light)] bg-[var(--color-card)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
       >
-        Next <ChevronRight className='w-4 h-4' />
+        Next <ChevronRight className="w-4 h-4" />
       </button>
     </div>
   );
@@ -82,9 +89,9 @@ export const EventsTab = ({ eventsWithRsvp }: { eventsWithRsvp: EventWithRsvp[] 
   const [activeTab, setActiveTab] = useState('all-events');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Separate page counter per tab so switching tabs keeps each tab's scroll position
   const [pages, setPages] = useState<Record<string, number>>({
     'all-events': 1,
+    'my-events': 1,
     upcoming: 1,
     ongoing: 1,
     completed: 1,
@@ -95,21 +102,18 @@ export const EventsTab = ({ eventsWithRsvp }: { eventsWithRsvp: EventWithRsvp[] 
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
-    // Reset all tab pages when search changes
-    setPages({ 'all-events': 1, upcoming: 1, ongoing: 1, completed: 1 });
+    setPages({ 'all-events': 1, 'my-events': 1, upcoming: 1, ongoing: 1, completed: 1 });
   };
 
   const filterEvents = (status?: string) => {
     let filtered = eventsWithRsvp;
 
-    // Filter by RSVP status ("My Events")
-    if (status === "my-events") {
-      filtered = filtered.filter(e => e.rsvp !== null && e.rsvp !== undefined);
+    if (status === 'my-events') {
+      filtered = filtered.filter((e) => e.rsvp !== null && e.rsvp !== undefined);
+    } else if (status && status !== 'all-events') {
+      filtered = filtered.filter((e) => e.event.status === status.toUpperCase());
     }
-    // Filter by status for other tabs
-    else if (status && status !== "all-events") {
-      filtered = filtered.filter(e => e.event.status === status.toUpperCase());
-    }
+
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       filtered = filtered.filter(
@@ -131,10 +135,12 @@ export const EventsTab = ({ eventsWithRsvp }: { eventsWithRsvp: EventWithRsvp[] 
 
     if (filteredEvents.length === 0) {
       return (
-        <div className='text-center py-12'>
-          <Search className='w-16 h-16 text-gray-300 mx-auto mb-4' />
-          <p className='text-gray-500 text-lg'>No events found</p>
-          <p className='text-gray-400 text-sm mt-2'>
+        <div className="flex flex-col items-center justify-center py-16">
+          <div className="w-14 h-14 rounded-2xl bg-[var(--color-surface)] flex items-center justify-center mb-4">
+            <Inbox className="w-7 h-7 text-[var(--color-text-muted)]" />
+          </div>
+          <p className="text-[var(--color-text-primary)] font-medium">No events found</p>
+          <p className="text-sm text-[var(--color-text-muted)] mt-1">
             {searchQuery ? 'Try adjusting your search' : 'Check back later for new events'}
           </p>
         </div>
@@ -143,11 +149,11 @@ export const EventsTab = ({ eventsWithRsvp }: { eventsWithRsvp: EventWithRsvp[] 
 
     return (
       <div>
-        <p className='text-sm text-gray-600 mb-4'>
+        <p className="text-[13px] text-[var(--color-text-muted)] mb-5 tabular-nums">
           Showing {start + 1}–{Math.min(start + PAGE_SIZE, filteredEvents.length)} of{' '}
           {filteredEvents.length} event{filteredEvents.length !== 1 ? 's' : ''}
         </p>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {paginated.map((eventWithRsvp, index) => (
             <EventCard key={eventWithRsvp.event.id ?? index} eventWithRsvp={eventWithRsvp} />
           ))}
@@ -162,81 +168,46 @@ export const EventsTab = ({ eventsWithRsvp }: { eventsWithRsvp: EventWithRsvp[] 
   };
 
   return (
-    <div className='max-w-7xl mx-auto px-4'>
-      {/* Search Bar */}
-      <div className='mb-6'>
-        <div className='relative'>
-          <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5' />
-          <input
-            type='text'
-            placeholder='Search events by title, description, or location...'
-            value={searchQuery}
-            onChange={(e) => handleSearch(e.target.value)}
-            className='w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent'
-          />
-          {searchQuery && (
-            <button
-              onClick={() => handleSearch('')}
-              className='absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600'
-            >
-              ✕
-            </button>
-          )}
-        </div>
+    <div className="space-y-6">
+      {/* Search */}
+      <div className="relative">
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] w-4.5 h-4.5" />
+        <input
+          type="text"
+          placeholder="Search events by title, description, or location…"
+          value={searchQuery}
+          onChange={(e) => handleSearch(e.target.value)}
+          className="w-full pl-11 pr-10 py-3 rounded-xl border border-[var(--color-border-light)] bg-[var(--color-card)] text-[var(--color-text-primary)] text-sm placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-input-focus)] focus:border-transparent transition-shadow"
+        />
+        {searchQuery && (
+          <button
+            onClick={() => handleSearch('')}
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] transition-colors text-sm"
+          >
+            ✕
+          </button>
+        )}
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        {/* Full width tabs container with gray background */}
-        <div className="w-full rounded-lg p-1 mb-6">
-          <TabsList className="w-full h-auto p-3 flex justify-between items-center bg-gray-100 rounded-lg flex-wrap gap-2">
-            <TabsTrigger
-              value="all-events"
-              className="text-sm py-1.5 px-4 rounded-md data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm text-gray-600 hover:text-gray-900 transition-all duration-200 flex-1 whitespace-nowrap"
-            >
-              All Events
-            </TabsTrigger>
-            <TabsTrigger
-              value="my-events"
-              className="text-sm py-1.5 px-4 rounded-md data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm text-gray-600 hover:text-gray-900 transition-all duration-200 flex-1 whitespace-nowrap"
-            >
-              My Events
-            </TabsTrigger>
-            <TabsTrigger
-              value="upcoming"
-              className="text-sm py-1.5 px-4 rounded-md data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm text-gray-600 hover:text-gray-900 transition-all duration-200 flex-1 whitespace-nowrap"
-            >
-              Upcoming
-            </TabsTrigger>
-            <TabsTrigger
-              value="ongoing"
-              className="text-sm py-1.5 px-4 rounded-md data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm text-gray-600 hover:text-gray-900 transition-all duration-200 flex-1 whitespace-nowrap"
-            >
-              Ongoing
-            </TabsTrigger>
-            <TabsTrigger
-              value="completed"
-              className="text-sm py-1.5 px-4 rounded-md data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm text-gray-600 hover:text-gray-900 transition-all duration-200 flex-1 whitespace-nowrap"
-            >
-              Completed
-            </TabsTrigger>
-          </TabsList>
-        </div>
-        <TabsContent value="all-events" className="mt-0">
-          {getTabContent('all-events')}
-        </TabsContent>
-        <TabsContent value="my-events" className="mt-0">
-          {getTabContent('my-events')}
-        </TabsContent>
-        <TabsContent value="upcoming" className="mt-0">
-          {getTabContent('upcoming')}
-        </TabsContent>
-        <TabsContent value="ongoing" className="mt-0">
-          {getTabContent('ongoing')}
-        </TabsContent>
-        <TabsContent value="completed" className="mt-0">
-          {getTabContent('completed')}
-        </TabsContent>
-      </Tabs>
+      {/* Tab Pills */}
+      <div className="w-full grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-2.5 md:gap-3 items-center">
+        {TABS.map((tab) => (
+          <button
+            key={tab.value}
+            onClick={() => setActiveTab(tab.value)}
+            className={`w-full px-4 py-2.5 rounded-xl text-sm font-semibold tracking-[0.01em] text-center whitespace-nowrap transition-all ${
+              activeTab === tab.value
+                ? 'bg-[var(--color-button-primary)] text-white shadow-sm ring-1 ring-[var(--color-button-primary)]'
+                : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] border border-[var(--color-border-light)]'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Active Tab Content */}
+      {getTabContent(activeTab)}
     </div>
   );
 };

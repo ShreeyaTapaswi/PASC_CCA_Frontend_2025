@@ -106,8 +106,8 @@ export default function EventDetailPage({
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="text-gray-600 mt-4">Loading event details...</p>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[var(--color-primary)] mx-auto"></div>
+          <p className="text-[var(--color-text-muted)] mt-4">Loading event details...</p>
         </div>
       </div>
     );
@@ -117,8 +117,8 @@ export default function EventDetailPage({
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900">Event Not Found</h2>
-          <p className="text-gray-600 mt-2">
+          <h2 className="text-2xl font-bold text-[var(--color-text-primary)]">Event Not Found</h2>
+          <p className="text-[var(--color-text-muted)] mt-2">
             {error || "The event you are looking for does not exist."}
           </p>
         </div>
@@ -134,7 +134,7 @@ export default function EventDetailPage({
       {/* Navigation Header */}
       <div className="flex items-center space-x-4 mb-6">
         <button
-          className="flex items-center text-blue-600 hover:text-blue-800"
+          className="flex items-center text-[var(--color-primary)] hover:text-[var(--color-primary)]"
           onClick={() => router.push('/student/events')}
         >
           <ArrowLeft className="w-5 h-5 mr-1" />
@@ -149,7 +149,7 @@ export default function EventDetailPage({
           <Card className="border-none shadow-sm hover:shadow-lg transition-shadow duration-200">
             <CardHeader className="w-full overflow-hidden">
               <div className="flex items-start justify-between flex-wrap gap-4">
-                <CardTitle className="text-2xl font-bold text-gray-900 break-words max-w-full">
+                <CardTitle className="text-2xl font-bold text-[var(--color-text-primary)] break-words max-w-full">
                   {eventDetails?.title}
                 </CardTitle>
                 <Badge
@@ -160,7 +160,7 @@ export default function EventDetailPage({
                 </Badge>
               </div>
               <div className="w-full overflow-hidden pt-4">
-                <p className="text-gray-600 leading-relaxed whitespace-pre-wrap break-words w-full">
+                <p className="text-[var(--color-text-muted)] leading-relaxed whitespace-pre-wrap break-words w-full">
                   {eventDetails?.description}
                 </p>
               </div>
@@ -170,19 +170,19 @@ export default function EventDetailPage({
           {/* Prerequisites */}
           <Card className="border-none shadow-sm hover:shadow-lg transition-shadow duration-200">
             <CardHeader>
-              <CardTitle className="text-xl font-semibold text-gray-900">
+              <CardTitle className="text-xl font-semibold text-[var(--color-text-primary)]">
                 Prerequisites
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600">{eventDetails?.prerequisite}</p>
+              <p className="text-[var(--color-text-muted)]">{eventDetails?.prerequisite}</p>
             </CardContent>
           </Card>
 
           {/* Sessions List (Student View) */}
           <Card className="border-none shadow-sm hover:shadow-lg transition-shadow duration-200">
             <CardHeader>
-              <CardTitle className="text-xl font-semibold text-gray-900">
+              <CardTitle className="text-xl font-semibold text-[var(--color-text-primary)]">
                 Sessions
               </CardTitle>
             </CardHeader>
@@ -192,26 +192,26 @@ export default function EventDetailPage({
                   {event.session.map((session: any) => (
                     <div
                       key={session.id}
-                      className={`border rounded-lg p-4 transition-all bg-gray-50`}
+                      className={`border rounded-lg p-4 transition-all bg-[var(--color-surface)]`}
                     >
                       {/* Title */}
                       <div className="mb-2">
-                        <span className="text-base font-medium text-gray-900">{session.sessionName}</span>
+                        <span className="text-base font-medium text-[var(--color-text-primary)]">{session.sessionName}</span>
                       </div>
                       {/* Location */}
                       <div className="mb-1">
-                        <span className="text-xs text-gray-500">{session.location}</span>
+                        <span className="text-xs text-[var(--color-text-muted)]">{session.location}</span>
                       </div>
                       {/* Start/End Time */}
                       <div className="mb-1">
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-[var(--color-text-muted)]">
                           {session.startTime ? new Date(session.startTime).toLocaleString() : "-"} - {session.endTime ? new Date(session.endTime).toLocaleString() : "-"}
                         </span>
                       </div>
                       {/* Status */}
                       <div className="mt-2">
                         <span
-                          className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${session.isActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                          className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${session.isActive ? 'bg-green-100 text-green-800' : 'bg-[var(--color-surface)] text-[var(--color-text-primary)]'
                             }`}
                         >
                           {session.isActive ? 'Active' : 'Disabled'}
@@ -222,7 +222,7 @@ export default function EventDetailPage({
                         <div className="mt-4">
                           {eventDetails?.status === 'COMPLETED' ? (
                             <Button
-                              className="w-full bg-gray-400 text-white font-semibold cursor-not-allowed"
+                              className="w-full bg-[var(--color-text-muted)] text-white font-semibold cursor-not-allowed"
                               disabled
                             >
                               Event Completed
@@ -248,7 +248,7 @@ export default function EventDetailPage({
                   ))}
                 </div>
               ) : (
-                <div className="text-gray-500">No sessions available for this event.</div>
+                <div className="text-[var(--color-text-muted)]">No sessions available for this event.</div>
               )}
             </CardContent>
           </Card>
@@ -256,7 +256,7 @@ export default function EventDetailPage({
           {/* Resources List */}
           <Card className="border-none shadow-sm hover:shadow-lg transition-shadow duration-200">
             <CardHeader>
-              <CardTitle className="text-xl font-semibold text-gray-900">
+              <CardTitle className="text-xl font-semibold text-[var(--color-text-primary)]">
                 Event Resources
               </CardTitle>
             </CardHeader>
@@ -268,26 +268,26 @@ export default function EventDetailPage({
                       switch (type) {
                         case 'SLIDES': return <FileText className="w-5 h-5 text-orange-500" />;
                         case 'VIDEO': return <Video className="w-5 h-5 text-red-500" />;
-                        case 'CODE': return <Code className="w-5 h-5 text-blue-500" />;
+                        case 'CODE': return <Code className="w-5 h-5 text-[var(--color-info)]" />;
                         case 'LINK': return <LinkIcon className="w-5 h-5 text-green-500" />;
-                        case 'DOCUMENT': return <FileText className="w-5 h-5 text-blue-400" />;
-                        default: return <File className="w-5 h-5 text-gray-500" />;
+                        case 'DOCUMENT': return <FileText className="w-5 h-5 text-[var(--color-primary)]" />;
+                        default: return <File className="w-5 h-5 text-[var(--color-text-muted)]" />;
                       }
                     };
 
                     return (
                       <div
                         key={resource.id}
-                        className="flex items-center justify-between p-4 border rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
+                        className="flex items-center justify-between p-4 border rounded-lg bg-[var(--color-surface)] hover:bg-[var(--color-surface-hover)] transition-colors"
                       >
                         <div className="flex items-center gap-3 overflow-hidden">
-                          <div className="p-2 bg-white rounded-lg border shadow-sm flex-shrink-0">
+                          <div className="p-2 bg-[var(--color-card)] rounded-lg border shadow-sm flex-shrink-0">
                             {getIcon(resource.type)}
                           </div>
                           <div className="min-w-0">
-                            <h4 className="font-medium text-gray-900 truncate">{resource.title}</h4>
+                            <h4 className="font-medium text-[var(--color-text-primary)] truncate">{resource.title}</h4>
                             {resource.description && (
-                              <p className="text-sm text-gray-500 truncate">{resource.description}</p>
+                              <p className="text-sm text-[var(--color-text-muted)] truncate">{resource.description}</p>
                             )}
                           </div>
                         </div>
@@ -304,8 +304,8 @@ export default function EventDetailPage({
                   })}
                 </div>
               ) : (
-                <div className="text-center py-8 bg-gray-50 rounded-lg border border-dashed">
-                  <p className="text-gray-500">No resources available for this event yet.</p>
+                <div className="text-center py-8 bg-[var(--color-surface)] rounded-lg border border-dashed">
+                  <p className="text-[var(--color-text-muted)]">No resources available for this event yet.</p>
                 </div>
               )}
             </CardContent>

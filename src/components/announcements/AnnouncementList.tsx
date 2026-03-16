@@ -49,7 +49,7 @@ export function AnnouncementList() {
     return (
       <div className="space-y-4">
         {[1, 2, 3].map(i => (
-          <div key={i} className="p-4 border rounded-lg space-y-3">
+          <div key={i} className="p-4 bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg shadow-sm space-y-3">
             <Skeleton className="h-6 w-3/4" />
             <Skeleton className="h-4 w-full" />
             <Skeleton className="h-4 w-2/3" />
@@ -73,9 +73,9 @@ export function AnnouncementList() {
   if (announcements.length === 0) {
     return (
       <div className="text-center py-12">
-        <Megaphone className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
+        <Megaphone className="w-16 h-16 mx-auto text-[var(--color-text-muted)] mb-4" />
         <h3 className="text-lg font-semibold mb-2">No Announcements</h3>
-        <p className="text-muted-foreground">
+        <p className="text-[var(--color-text-muted)]">
           There are no announcements at the moment.
         </p>
       </div>
