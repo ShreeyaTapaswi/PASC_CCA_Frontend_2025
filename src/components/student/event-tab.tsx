@@ -9,8 +9,8 @@ const PAGE_SIZE = 6;
 const TABS = [
   { value: 'all-events', label: 'All Events' },
   { value: 'my-events', label: 'My Events' },
-  { value: 'upcoming', label: 'Upcoming' },
   { value: 'ongoing', label: 'Ongoing' },
+  { value: 'upcoming', label: 'Upcoming' },
   { value: 'completed', label: 'Completed' },
 ] as const;
 
@@ -123,6 +123,20 @@ export const EventsTab = ({ eventsWithRsvp }: { eventsWithRsvp: EventWithRsvp[] 
           e.event.location.toLowerCase().includes(q)
       );
     }
+
+    if (status === 'all-events' || !status) {
+      const statusOrder: Record<string, number> = {
+        ONGOING: 1,
+        UPCOMING: 2,
+        COMPLETED: 3,
+      };
+      filtered.sort((a, b) => {
+        const orderA = statusOrder[a.event.status?.toUpperCase()] || 4;
+        const orderB = statusOrder[b.event.status?.toUpperCase()] || 4;
+        return orderA - orderB;
+      });
+    }
+
     return filtered;
   };
 

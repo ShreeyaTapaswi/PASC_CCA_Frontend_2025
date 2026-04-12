@@ -343,25 +343,11 @@ const AttendanceManagement: React.FC = () => {
                 <Download className="w-4 h-4 mr-2" />
                 Export Excel
               </button>
-              <button
-                onClick={handleOpenAddModal}
-                className="flex items-center px-4 py-2 bg-[var(--color-button-primary)] text-white rounded-lg hover:bg-[var(--color-button-primary)]"
-              >
-                <Plus className="w-4 h-4 mr-2" />
-                Add Session
-              </button>
             </div>
           </div>
           {sessions.length === 0 ? (
             <div className="text-center text-[var(--color-text-muted)] py-12">
-              <p className="mb-4">No sessions yet. Click 'Add Session' to create one.</p>
-              <button
-                onClick={handleOpenAddModal}
-                className="inline-flex items-center px-4 py-2 bg-[var(--color-button-primary)] text-white rounded-lg hover:bg-[var(--color-button-primary)]"
-              >
-                <Plus className="w-4 h-4 mr-2" />
-                Add Session
-              </button>
+              <p className="mb-4">No sessions yet. Please create sessions from the 'Sessions' tab.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

@@ -91,10 +91,23 @@ export const EventsList = ({ events, filterStatus, onRefresh }: EventsListProps)
   }, [filterStatus]);
 
   const safeEvents = Array.isArray(events) ? events : [];
-  const filteredEvents =
+  let filteredEvents =
     filterStatus !== 'ALL EVENTS'
       ? safeEvents.filter((event) => event.status === filterStatus)
       : safeEvents;
+
+  if (filterStatus === 'ALL EVENTS') {
+    const statusOrder: Record<string, number> = {
+      ONGOING: 1,
+      UPCOMING: 2,
+      COMPLETED: 3,
+    };
+    filteredEvents = [...filteredEvents].sort((a, b) => {
+      const orderA = statusOrder[a.status?.toUpperCase()] || 4;
+      const orderB = statusOrder[b.status?.toUpperCase()] || 4;
+      return orderA - orderB;
+    });
+  }
 
   const totalPages = Math.max(1, Math.ceil(filteredEvents.length / PAGE_SIZE));
   const safePage = Math.min(currentPage, totalPages);

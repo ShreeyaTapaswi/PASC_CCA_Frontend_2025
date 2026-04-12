@@ -15,9 +15,10 @@ export function useFetchEventsForAdmin(search?: string) {
         setError(null);
         try {
             // Use admin events endpoint — supports backend search
-            const res = await eventAPI.getAdminEvents(
-                searchQuery ? { search: searchQuery } : undefined
-            );
+            const res = await eventAPI.getAdminEvents({
+                search: searchQuery || undefined,
+                limit: 1000
+            });
 
             // Backend returns: { success, data: { events: [...], pagination: { total, page, limit, pages } } }
             const responseData = res.data?.data;

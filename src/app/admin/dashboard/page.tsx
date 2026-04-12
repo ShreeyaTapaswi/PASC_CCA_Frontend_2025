@@ -268,8 +268,8 @@ const AdminDashboard = () => {
     ? [
       { label: 'Total', value: totalPipelineEvents, color: '#64748b' }, // slate-500
       { label: 'Active', value: activeEventsCount, color: '#0ea5e9' }, // sky-500
-      { label: 'Upcoming', value: analytics.upcomingEvents, color: '#3b82f6' }, // blue-500
       { label: 'Ongoing', value: analytics.ongoingEvents, color: '#10b981' }, // emerald-500
+      { label: 'Upcoming', value: analytics.upcomingEvents, color: '#3b82f6' }, // blue-500
       { label: 'Completed', value: analytics.completedEvents, color: '#9333ea' }, // purple-600
     ]
     : [];
@@ -382,18 +382,6 @@ const AdminDashboard = () => {
           <div className="lg:col-span-1 grid grid-cols-2 gap-4 h-full">
             <div className="rounded-2xl sm:rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-card)] p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow duration-300">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-sm text-muted-foreground">Upcoming</h3>
-                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
-                  <Calendar className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                </div>
-              </div>
-              <p className="text-3xl font-bold text-foreground">
-                {analytics?.upcomingEvents ?? 0}
-              </p>
-            </div>
-
-            <div className="rounded-2xl sm:rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-card)] p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow duration-300">
-              <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-sm text-muted-foreground">Ongoing</h3>
                 <div className="w-8 h-8 bg-green-100 dark:bg-green-900/20 rounded-lg flex items-center justify-center">
                   <Activity className="w-4 h-4 text-green-600 dark:text-green-400" />
@@ -401,6 +389,18 @@ const AdminDashboard = () => {
               </div>
               <p className="text-3xl font-bold text-foreground">
                 {analytics?.ongoingEvents ?? 0}
+              </p>
+            </div>
+
+            <div className="rounded-2xl sm:rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-card)] p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow duration-300">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-semibold text-sm text-muted-foreground">Upcoming</h3>
+                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
+                  <Calendar className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                </div>
+              </div>
+              <p className="text-3xl font-bold text-foreground">
+                {analytics?.upcomingEvents ?? 0}
               </p>
             </div>
 
