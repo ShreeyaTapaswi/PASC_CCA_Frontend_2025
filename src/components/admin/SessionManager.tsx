@@ -47,11 +47,6 @@ export function SessionManager({ eventId, eventStartDate, eventEndDate }: Sessio
         }
     };
 
-    const generateCode = () => {
-        const code = Math.random().toString(36).substring(2, 8).toUpperCase();
-        setFormData({ ...formData, code });
-    };
-
     // Helper: extract YYYY-MM-DD from a datetime-local string or date string
     const toDateOnly = (val: string): string => {
         // datetime-local is "YYYY-MM-DDTHH:mm", date input is "YYYY-MM-DD"
@@ -59,7 +54,7 @@ export function SessionManager({ eventId, eventStartDate, eventEndDate }: Sessio
     };
 
     const handleAddSession = async () => {
-        if (!formData.sessionName || !formData.code) return;
+        if (!formData.sessionName) return;
 
         // Require startTime
         if (!formData.startTime) {
@@ -135,7 +130,11 @@ export function SessionManager({ eventId, eventStartDate, eventEndDate }: Sessio
                     Attendance Sessions
                 </h3>
                 {!isAdding && (
-                    <Button onClick={() => setIsAdding(true)} size="sm">
+                    <Button onClick={() => {
+                        const newCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+                        setFormData({...formData, code: newCode});
+                        setIsAdding(true);
+                    }} size="sm">
                         <Plus className="w-4 h-4 mr-2" />
                         Create Session
                     </Button>
@@ -173,18 +172,13 @@ export function SessionManager({ eventId, eventStartDate, eventEndDate }: Sessio
                             />
                         </div>
                         <div className="space-y-1 md:col-span-2">
-                            <label className="text-xs font-medium">Attendance Code</label>
-                            <div className="flex gap-2">
-                                <Input
-                                    placeholder="CODE123"
-                                    value={formData.code}
-                                    onChange={e => setFormData({ ...formData, code: e.target.value.toUpperCase() })}
-                                    className="font-mono bg-accent"
-                                />
-                                <Button variant="outline" size="icon" onClick={generateCode}>
-                                    <RefreshCw className="w-4 h-4" />
-                                </Button>
-                            </div>
+                            <label className="text-xs font-medium">Attendance Code (Auto-generated)</label>
+                            <Input
+                                value={formData.code}
+                                readOnly
+                                disabled
+                                className="font-mono bg-accent"
+                            />
                         </div>
                     </div>
 
@@ -224,7 +218,7 @@ export function SessionManager({ eventId, eventStartDate, eventEndDate }: Sessio
 
                     <div className="flex gap-2 justify-end">
                         <Button variant="ghost" size="sm" onClick={() => setIsAdding(false)}>Cancel</Button>
-                        <Button size="sm" onClick={handleAddSession} disabled={submitting || !formData.code || !formData.sessionName || !formData.startTime}>
+                        <Button size="sm" onClick={handleAddSession} disabled={submitting || !formData.sessionName || !formData.startTime}>
                             {submitting ? 'Creating...' : 'Create Session'}
                         </Button>
                     </div>

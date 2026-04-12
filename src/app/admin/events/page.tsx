@@ -92,7 +92,7 @@ const AdminEventsPage = () => {
                 <div className="rounded-2xl sm:rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-card)] p-5 sm:p-6 shadow-sm hover:shadow-md transition-shadow duration-300">
                     {/* Tab Pills */}
                     <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-3 items-center mb-6">
-                        {["ALL EVENTS", "UPCOMING", "ONGOING", "COMPLETED"].map((tab) => (
+                        {["ALL EVENTS", "ONGOING", "UPCOMING", "COMPLETED"].map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
@@ -108,7 +108,7 @@ const AdminEventsPage = () => {
                     </div>
 
                     <div className="mt-0">
-                        {["ALL EVENTS", "UPCOMING", "ONGOING", "COMPLETED"].map((status) => (
+                        {["ALL EVENTS", "ONGOING", "UPCOMING", "COMPLETED"].map((status) => (
                             activeTab === status && (
                                 <EventsList key={status} events={events} filterStatus={status as EventStatus} />
                             )

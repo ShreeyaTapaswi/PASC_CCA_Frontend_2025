@@ -42,7 +42,7 @@ export default function SessionManagementPage({
   const [formData, setFormData] = useState({
     sessionName: '',
     location: '',
-    code: '',
+    // code: '',
     credits: 0,
     startTime: '',
     endTime: '',
@@ -134,7 +134,7 @@ export default function SessionManagementPage({
       const payload = {
         sessionName: formData.sessionName,
         location: formData.location,
-        code: formData.code,
+        // code: formData.code,
         credits: formData.credits,
         startTime: new Date(formData.startTime).toISOString(),
         endTime: formData.endTime ? new Date(formData.endTime).toISOString() : null,
@@ -181,7 +181,7 @@ export default function SessionManagementPage({
     setFormData({
       sessionName: session.sessionName,
       location: session.location,
-      code: session.code,
+      // code: session.code,
       credits: session.credits,
       startTime: toLocalDatetime(session.startTime),
       endTime: toLocalDatetime(session.endTime),
@@ -196,7 +196,7 @@ export default function SessionManagementPage({
     setFormData({
       sessionName: '',
       location: '',
-      code: '',
+      // code: '',
       credits: 0,
       startTime: '',
       endTime: '',
@@ -206,7 +206,7 @@ export default function SessionManagementPage({
 
   const generateCode = () => {
     const code = Math.random().toString(36).substring(2, 8).toUpperCase();
-    setFormData({ ...formData, code });
+    // setFormData({ ...formData, code });
   };
 
   return (
@@ -351,7 +351,7 @@ export default function SessionManagementPage({
               />
             </div>
 
-            <div>
+            {/* <div>
               <label className="block text-sm font-medium mb-2">Attendance Code</label>
               <div className="flex gap-2">
                 <Input
@@ -364,7 +364,7 @@ export default function SessionManagementPage({
                   Generate
                 </Button>
               </div>
-            </div>
+            </div> */}
 
             <div>
               <label className="block text-sm font-medium mb-2">Credits</label>
