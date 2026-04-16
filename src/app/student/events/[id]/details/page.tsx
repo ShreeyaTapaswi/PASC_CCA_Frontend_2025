@@ -59,6 +59,10 @@ export default function EventDetailsPage({
         if (eventRsvp) {
           setRsvpStatus(eventRsvp.status);
           setRsvpId(eventRsvp.id);
+          setEvent((prev: any) => ({
+            ...prev,
+            userRsvp: eventRsvp
+          }));
         }
       }
     } catch (error) {
@@ -69,15 +73,18 @@ export default function EventDetailsPage({
   const handleRsvp = async () => {
     setRsvpLoading(true);
     try {
-      if (rsvpStatus === 'ATTENDING' && rsvpId) {
+      if ((rsvpStatus === 'CONFIRMED' || rsvpStatus === 'WAITLISTED' || rsvpStatus === 'ATTENDING') && rsvpId) {
         await rsvpAPI.cancel(rsvpId);
         setRsvpStatus(null);
         setRsvpId(null);
+        fetchEvent(eventId); // Refresh capacity
       } else {
         const response = await rsvpAPI.create(eventId);
         if (response.data?.success && response.data.data) {
-          setRsvpStatus('ATTENDING');
-          setRsvpId(response.data.data.id);
+          const newRsvp = response.data.data;
+          setRsvpStatus(newRsvp.status);
+          setRsvpId(newRsvp.id);
+          fetchEvent(eventId); // Refresh capacity
         }
       }
     } catch (error) {
@@ -144,13 +151,35 @@ export default function EventDetailsPage({
                 </div>
                 <p className="text-muted-foreground text-lg">{event.description}</p>
               </div>
-              <Button
-                onClick={handleRsvp}
-                disabled={rsvpLoading || event.status === 'COMPLETED'}
-                className={rsvpStatus === 'ATTENDING' ? 'bg-green-600 hover:bg-green-700' : ''}
-              >
-                {rsvpLoading ? 'Loading...' : rsvpStatus === 'ATTENDING' ? 'Cancel RSVP' : 'RSVP Now'}
-              </Button>
+              <div className="flex flex-col items-end gap-2">
+                <Button
+                  onClick={handleRsvp}
+                  disabled={rsvpLoading || event.status === 'COMPLETED' || rsvpStatus === 'REJECTED'}
+                  className={
+                    rsvpStatus === 'CONFIRMED' || rsvpStatus === 'ATTENDING' 
+                      ? 'bg-green-600 hover:bg-green-700' 
+                      : rsvpStatus === 'WAITLISTED'
+                        ? 'bg-amber-500 hover:bg-amber-600 outline-none ring-0'
+                        : ''
+                  }
+                >
+                  {rsvpLoading ? 'Loading...' : 
+                   rsvpStatus === 'CONFIRMED' || rsvpStatus === 'ATTENDING' ? 'Cancel RSVP' : 
+                   rsvpStatus === 'WAITLISTED' ? 'Leave Waitlist' :
+                   rsvpStatus === 'REJECTED' ? 'RSVP Rejected' :
+                   (event._count?.rsvps >= event.capacity) ? 'Join Waitlist' : 'RSVP Now'}
+                </Button>
+                {rsvpStatus === 'WAITLISTED' && event.userRsvp?.waitlistPosition && (
+                  <p className="text-xs font-medium text-amber-600 dark:text-amber-400">
+                    Your position: {event.userRsvp.waitlistPosition}
+                  </p>
+                )}
+                {rsvpStatus === 'CONFIRMED' && (
+                  <p className="text-xs font-medium text-green-600 dark:text-green-400">
+                    RSVP Confirmed
+                  </p>
+                )}
+              </div>
             </div>
 
             {/* Event Details Grid */}
@@ -177,10 +206,12 @@ export default function EventDetailsPage({
                 </div>
               </div>
               <div className="flex items-center gap-3 p-3 bg-accent rounded-lg">
-                <Clock className="w-5 h-5 text-primary" />
+                <Users className="w-5 h-5 text-primary" />
                 <div>
-                  <p className="text-xs text-muted-foreground">Credits</p>
-                  <p className="font-medium">{event.credits} hours</p>
+                  <p className="text-xs text-muted-foreground">Capacity</p>
+                  <p className="font-medium">
+                    {event._count?.rsvps ?? 0} / {(event._count?.rsvps ?? 0) + event.capacity}
+                  </p>
                 </div>
               </div>
             </div>
@@ -239,3 +270,4 @@ export default function EventDetailsPage({
 }
 
 
+// Added Capacity display

@@ -123,9 +123,17 @@ export function AttendeeList({ eventId }: AttendeeListProps) {
                                     </div>
                                 </td>
                                 <td className="px-4 py-3">
-                                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${attendee.status === 'ATTENDING' ? 'bg-green-100 text-green-700 dark:bg-green-900/30' : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)]'
+                                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                                        attendee.status === 'CONFIRMED' || attendee.status === 'ATTENDING' 
+                                            ? 'bg-green-100 text-green-700 dark:bg-green-900/30' 
+                                            : attendee.status === 'WAITLISTED'
+                                                ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30'
+                                                : attendee.status === 'REJECTED'
+                                                    ? 'bg-red-100 text-red-700 dark:bg-red-900/30'
+                                                    : 'bg-[var(--color-surface)] text-[var(--color-text-secondary)]'
                                         }`}>
                                         {attendee.status}
+                                        {attendee.waitlistPosition ? ` (#${attendee.waitlistPosition})` : ''}
                                     </span>
                                 </td>
                                 <td className="px-4 py-3 text-sm text-muted-foreground">

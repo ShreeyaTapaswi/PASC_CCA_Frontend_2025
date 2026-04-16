@@ -22,7 +22,7 @@ export interface Rsvp {
   waitlistPosition?: number | null; // Backend has this field
 }
 
-export type RsvpStatus = "ATTENDING" | "NOT_ATTENDING";
+export type RsvpStatus = "CONFIRMED" | "WAITLISTED" | "REJECTED" | "ATTENDING" | "NOT_ATTENDING";
 
 export interface EventWithRsvp {
   event: Event;
