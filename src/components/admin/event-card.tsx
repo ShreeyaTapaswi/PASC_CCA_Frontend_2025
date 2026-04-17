@@ -88,7 +88,7 @@ export const EventCard = ({ onRefresh, ...event }: EventCardProps) => {
             {formatDate(event.startDate)} - {formatDate(event.endDate)} • {event.location}
           </p>
           <p className="text-sm text-muted-foreground">
-            {event.credits} credits • Capacity: {event.capacity}
+            {event.credits} credits • Capacity: {event.capacity <= 0 ? 'Full' : event.capacity}
           </p>
         </div>
         <div className="flex flex-wrap gap-2">

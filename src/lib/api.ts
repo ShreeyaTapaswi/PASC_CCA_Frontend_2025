@@ -147,6 +147,12 @@ export const rsvpAPI = {
   // Admin badge: count new RSVPs in the last 24 hours
   getAdminNewCount: () =>
     api.get('rsvps/admin/new-count'),
+
+  approve: (rsvpId: number, overrideCapacity: boolean = true) =>
+    api.post(`rsvps/admin/approve/${rsvpId}`, {}, { params: { overrideCapacity } }),
+
+  reject: (rsvpId: number) =>
+    api.post(`rsvps/admin/reject/${rsvpId}`),
 };
 
 // Attendance APIs

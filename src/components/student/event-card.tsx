@@ -132,7 +132,7 @@ export const EventCard = ({ eventWithRsvp }: { eventWithRsvp: EventWithRsvp }) =
               <Users className="w-3.5 h-3.5 text-[var(--color-primary)] shrink-0" />
               <div className="leading-none">
                 <p className="text-[11px] uppercase tracking-wide text-[var(--color-text-muted)]">Capacity</p>
-                <p className="text-sm font-semibold text-[var(--color-text-primary)] mt-1">{event.capacity}</p>
+                <p className="text-sm font-semibold text-[var(--color-text-primary)] mt-1">{event.capacity <= 0 ? 'Full' : event.capacity}</p>
               </div>
             </div>
           </div>
@@ -153,14 +153,20 @@ export const EventCard = ({ eventWithRsvp }: { eventWithRsvp: EventWithRsvp }) =
           ) : eventWithRsvp.rsvp ? (
             <button
               onClick={handleRsvpCancel}
-              className="w-full py-2.5 rounded-xl text-sm font-medium border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)] transition-colors"
+              className={`w-full py-2.5 rounded-xl text-sm font-medium border border-[var(--color-border)] transition-colors ${
+                eventWithRsvp.rsvp.status === 'WAITLISTED' 
+                  ? 'bg-amber-50 text-amber-700 border-amber-200' 
+                  : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)]'
+              }`}
             >
-              Cancel RSVP
+              {eventWithRsvp.rsvp.status === 'WAITLISTED' ? 'Leave Waitlist' : 'Cancel RSVP'}
             </button>
           ) : (
             <button
               onClick={handleRsvpButton}
-              className="w-full py-2.5 rounded-xl text-sm font-medium bg-[var(--color-button-primary)] text-white hover:bg-[var(--color-button-primary-hover)] transition-colors shadow-sm"
+              className={`w-full py-2.5 rounded-xl text-sm font-medium text-white transition-colors shadow-sm ${
+                 'bg-[var(--color-button-primary)] hover:bg-[var(--color-button-primary-hover)]'
+              }`}
             >
               RSVP
             </button>

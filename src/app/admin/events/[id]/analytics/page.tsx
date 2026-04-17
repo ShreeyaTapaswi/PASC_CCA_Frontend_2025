@@ -112,6 +112,13 @@ export default function EventAnalyticsPage({
   const [analytics, setAnalytics] = useState<EventAnalytics | null>(null);
   const [rsvps, setRsvps] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [rsvpFilter, setRsvpFilter] = useState<'WAITLISTED' | 'CONFIRMED' | 'ALL'>('WAITLISTED');
+
+  const filteredRsvps = rsvps.filter(rsvp => {
+    if (rsvpFilter === 'WAITLISTED') return rsvp.status === 'WAITLISTED';
+    if (rsvpFilter === 'CONFIRMED') return rsvp.status === 'CONFIRMED' || rsvp.status === 'ATTENDING';
+    return true;
+  });
 
   useEffect(() => {
     const init = async () => {
@@ -196,6 +203,51 @@ export default function EventAnalyticsPage({
       }
     } catch (error) {
       console.error('Error fetching RSVPs:', error);
+    }
+  };
+
+  const handleApproveRsvp = async (rsvpId: number, force: boolean = false) => {
+    try {
+      const response = await rsvpAPI.approve(rsvpId, force);
+      if (response.data?.success) {
+        // Refresh everything
+        await Promise.all([
+          fetchAnalytics(eventId),
+          fetchRsvps(eventId)
+        ]);
+      } else if (response.data?.message?.includes('capacity') && !force) {
+        if (confirm('Event is at full capacity. Do you want to force-approve (override capacity)?')) {
+          handleApproveRsvp(rsvpId, true);
+        }
+      } else {
+        alert(response.data?.message || 'Failed to approve RSVP');
+      }
+    } catch (error: any) {
+      console.error('Error approving RSVP:', error);
+      const errorMsg = error.response?.data?.message || 'Error occurred while approving';
+      if (errorMsg.includes('capacity') && !force) {
+        if (confirm('Event is at full capacity. Do you want to force-approve (override capacity)?')) {
+          handleApproveRsvp(rsvpId, true);
+        }
+      } else {
+        alert(errorMsg);
+      }
+    }
+  };
+
+  const handleRejectRsvp = async (rsvpId: number) => {
+    if (!confirm('Are you sure you want to reject this RSVP?')) return;
+    try {
+      const response = await rsvpAPI.reject(rsvpId);
+      if (response.data?.success) {
+        // Refresh everything
+        await Promise.all([
+          fetchAnalytics(eventId),
+          fetchRsvps(eventId)
+        ]);
+      }
+    } catch (error) {
+      console.error('Error rejecting RSVP:', error);
     }
   };
 
@@ -340,11 +392,31 @@ export default function EventAnalyticsPage({
 
         {/* RSVP List */}
         <div className="bg-card rounded-xl border border-border p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4">
             <h3 className="font-semibold text-lg flex items-center gap-2">
               <Users className="w-5 h-5 text-primary" />
-              Registered Students ({rsvps.length})
+              RSVPs ({filteredRsvps.length})
             </h3>
+            <div className="flex gap-2">
+              <button 
+                onClick={() => setRsvpFilter('WAITLISTED')} 
+                className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${rsvpFilter === 'WAITLISTED' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80 text-muted-foreground'}`}
+              >
+                Waitlisted
+              </button>
+              <button 
+                onClick={() => setRsvpFilter('CONFIRMED')} 
+                className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${rsvpFilter === 'CONFIRMED' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80 text-muted-foreground'}`}
+              >
+                Confirmed
+              </button>
+              <button 
+                onClick={() => setRsvpFilter('ALL')} 
+                className={`px-4 py-1.5 text-sm font-medium rounded-full transition-colors ${rsvpFilter === 'ALL' ? 'bg-primary text-primary-foreground' : 'bg-muted hover:bg-muted/80 text-muted-foreground'}`}
+              >
+                All
+              </button>
+            </div>
           </div>
 
           {loading ? (
@@ -353,10 +425,10 @@ export default function EventAnalyticsPage({
                 <Skeleton key={i} className="h-16 w-full" />
               ))}
             </div>
-          ) : rsvps.length === 0 ? (
+          ) : filteredRsvps.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
               <Users className="w-16 h-16 mx-auto mb-4 opacity-50" />
-              <p>No registrations yet</p>
+              <p>No RSVPs found for this category</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -369,10 +441,11 @@ export default function EventAnalyticsPage({
                     <th className="px-4 py-3 text-left text-sm font-semibold">Year</th>
                     <th className="px-4 py-3 text-left text-sm font-semibold">Status</th>
                     <th className="px-4 py-3 text-left text-sm font-semibold">Registered At</th>
+                    <th className="px-4 py-3 text-right text-sm font-semibold">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
-                  {rsvps.map((rsvp, index) => (
+                  {filteredRsvps.map((rsvp, index) => (
                     <tr key={rsvp.id} className="hover:bg-accent/50 transition-colors">
                       <td className="px-4 py-3 text-sm text-muted-foreground">{index + 1}</td>
                       <td className="px-4 py-3">
@@ -388,12 +461,49 @@ export default function EventAnalyticsPage({
                         {rsvp.user?.year ? `Year ${rsvp.user.year}` : '-'}
                       </td>
                       <td className="px-4 py-3">
-                        <Badge variant={rsvp.status === 'ATTENDING' ? 'default' : 'secondary'}>
+                        <Badge 
+                          className={
+                            rsvp.status === 'CONFIRMED' || rsvp.status === 'ATTENDING' 
+                              ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
+                              : rsvp.status === 'WAITLISTED'
+                                ? 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200'
+                                : rsvp.status === 'REJECTED'
+                                  ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                                  : 'bg-gray-100 text-gray-800'
+                          }
+                        >
                           {rsvp.status}
+                          {rsvp.waitlistPosition ? ` (#${rsvp.waitlistPosition})` : ''}
                         </Badge>
                       </td>
                       <td className="px-4 py-3 text-sm text-muted-foreground">
                         {formatDateTime(rsvp.createdAt)}
+                      </td>
+                      <td className="px-4 py-3 text-right space-x-2">
+                        {rsvp.status === 'WAITLISTED' && (
+                          <>
+                            <button
+                              onClick={() => handleApproveRsvp(rsvp.id)}
+                              className="text-xs font-semibold px-2 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+                            >
+                              Accept
+                            </button>
+                            <button
+                              onClick={() => handleRejectRsvp(rsvp.id)}
+                              className="text-xs font-semibold px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                            >
+                              Revoke
+                            </button>
+                          </>
+                        )}
+                        {(rsvp.status === 'CONFIRMED' || rsvp.status === 'ATTENDING') && (
+                           <button
+                             onClick={() => handleRejectRsvp(rsvp.id)}
+                             className="text-xs font-semibold px-2 py-1 text-red-600 hover:text-red-800 transition-colors"
+                           >
+                             Revoke
+                           </button>
+                        )}
                       </td>
                     </tr>
                   ))}
