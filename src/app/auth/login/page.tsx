@@ -368,12 +368,7 @@ export default function Login() {
               >
                 {loading ? "Logging in..." : "Login"}
               </button>
-              <p className="text-center text-secondary text-xs sm:text-sm">
-                Don't have an account?{" "}
-                <Link href="/auth/signup" className="link-text">
-                  Sign Up
-                </Link>
-              </p>
+              {/* Signup link removed for closed review */}
             </form>
           </div>
         </div>

@@ -222,16 +222,7 @@ export default function Home() {
                 transition={{ delay: 0.5, duration: 0.6 }}
                 className="flex flex-col sm:flex-row gap-4"
               >
-                <button
-                  onClick={() => router.push('/auth/signup')}
-                  className="group relative px-8 py-4 bg-gradient-to-r from-[#134467] to-[#2BA6DF] text-white rounded-xl font-semibold text-lg overflow-hidden shadow-lg shadow-[#134467]/25 hover:shadow-xl hover:shadow-[#134467]/30 transition-all duration-300 hover:scale-[1.02]"
-                >
-                  <span className="relative z-10 flex items-center justify-center gap-2">
-                    Get Started Free
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#2BA6DF] to-[#134467] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </button>
+                {/* Get Started Button Removed for Closed Review */}
                 
                 <button
                   onClick={() => router.push('/auth/login')}
@@ -610,13 +601,7 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button
-                onClick={() => router.push('/auth/signup')}
-                className="group px-8 py-4 bg-[var(--color-card)] text-[#134467] rounded-xl font-bold text-lg hover:bg-[#ECEFF1] hover:scale-105 transition-all duration-300 shadow-xl shadow-[#134467]/30 flex items-center gap-2"
-              >
-                Create Free Account
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              {/* Create Free Account Button Removed for Closed Review */}
               
               <button
                 onClick={() => router.push('/auth/login')}
@@ -651,7 +636,7 @@ export default function Home() {
               <h4 className="font-semibold mb-4 text-[#ECEFF1]">Platform</h4>
               <ul className="space-y-2 text-[#CCCCCC] text-sm">
                 <li><Link href="/auth/login" className="hover:text-white transition-colors">Sign In</Link></li>
-                <li><Link href="/auth/signup" className="hover:text-white transition-colors">Register</Link></li>
+                {/* Register Link Removed for Closed Review */}
                 <li><Link href="#" className="hover:text-white transition-colors">Events</Link></li>
                 <li><Link href="#" className="hover:text-white transition-colors">Leaderboard</Link></li>
               </ul>
