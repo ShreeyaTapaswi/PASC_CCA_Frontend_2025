@@ -12,7 +12,7 @@ import { formatDateTime, cn } from '@/lib/utils';
 import { useToast } from '@/components/ui/toast';
 
 const departments = ['CE', 'IT', 'ENTC', 'ECE', 'AIDS'];
-const years = [1, 2, 3, 4];
+const years = [1, 2];
 
 export default function AdminAnnouncementsPage() {
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);

@@ -157,54 +157,69 @@ export const EventCard = ({ eventWithRsvp }: { eventWithRsvp: EventWithRsvp }) =
          </div>
       </div>
 
-      {/* Bottom RSVP Checklist action resembling the reference image bottom */}
-      <div className="mt-auto flex items-center justify-between gap-4 pt-1">
-        {event.status === 'COMPLETED' ? (
-           <div className="flex items-center gap-3 w-full opacity-60">
-             <div className="w-5 h-5 rounded-full bg-[var(--color-surface-hover)] flex items-center justify-center shrink-0">
-                <div className="w-2 h-2 rounded-full bg-[var(--color-text-muted)]" />
+      {/* Bottom Actions */}
+      <div className="mt-auto pt-4 flex flex-col gap-3">
+        <div className="flex items-center justify-between gap-4">
+          {event.status === 'COMPLETED' ? (
+             <div className="flex items-center gap-2.5 opacity-60">
+               <div className="w-5 h-5 rounded-full bg-[var(--color-surface-hover)] flex items-center justify-center shrink-0">
+                  <div className="w-2 h-2 rounded-full bg-[var(--color-text-muted)]" />
+               </div>
+               <p className="text-[14px] font-semibold text-[var(--color-text-muted)]">Completed</p>
              </div>
-             <p className="text-[15px] font-semibold text-[var(--color-text-muted)]">Event has concluded</p>
-           </div>
-        ) : eventWithRsvp.rsvp ? (
-           <>
-              <div className="flex items-center gap-3">
-                 <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center shrink-0 text-white">
-                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                 </div>
-                 <p className="text-[15px] font-semibold text-[var(--color-text-primary)]">
-                    {eventWithRsvp.rsvp.status === 'WAITLISTED' ? 'Waitlisted' : 'You are going!'}
-                 </p>
-              </div>
+          ) : eventWithRsvp.rsvp ? (
+             <div className="flex items-center gap-2.5">
+               <div className="w-5.5 h-5.5 rounded-full bg-emerald-500 flex items-center justify-center shrink-0 text-white shadow-sm">
+                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+               </div>
+               <p className="text-[14px] font-bold text-[var(--color-text-primary)]">
+                  {eventWithRsvp.rsvp.status === 'WAITLISTED' ? 'Waitlisted' : 'Registered'}
+               </p>
+             </div>
+          ) : (
+             <div className="flex items-center gap-2.5">
+                <div className="w-5.5 h-5.5 rounded-full border-[2px] border-[var(--color-border-light)] bg-[var(--color-surface)] flex items-center justify-center shrink-0" />
+                <p className="text-[14px] font-semibold text-[var(--color-text-primary)]">Open for RSVP</p>
+             </div>
+          )}
+
+          <Link 
+            href={`/student/events/${event.id}`}
+            className="text-[13px] font-bold text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] flex items-center gap-1 transition-colors py-1"
+          >
+            View Details
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+          </Link>
+        </div>
+
+        <div className="flex gap-2.5 mt-1">
+          {event.status !== 'COMPLETED' && (
+            eventWithRsvp.rsvp ? (
               <button
                 onClick={handleRsvpCancel}
-                className="text-[13px] font-bold text-red-500 hover:text-red-600 transition-colors bg-red-50 dark:bg-red-500/10 px-3 py-1.5 rounded-lg shrink-0"
+                className="flex-1 text-[13.5px] font-bold text-red-500 hover:text-red-600 transition-all bg-red-50 dark:bg-red-500/10 hover:bg-red-100 dark:hover:bg-red-500/20 py-2.5 rounded-xl border border-red-200/50 dark:border-red-500/20"
               >
-                Cancel
+                Cancel RSVP
               </button>
-           </>
-        ) : (
-           <>
-              <div className="flex items-center gap-3">
-                 <div className="w-6 h-6 rounded-full border-[2.5px] border-[var(--color-border-light)] bg-[var(--color-surface)] flex items-center justify-center shrink-0" />
-                 <p className="text-[15px] font-semibold text-[var(--color-text-primary)]">Ready to join?</p>
-              </div>
+            ) : (
               <button
                 onClick={handleRsvpButton}
-                className="text-[14px] font-bold text-white transition-colors bg-[#1C1C1E] dark:bg-white dark:text-black hover:opacity-80 px-5 py-2 rounded-xl shrink-0"
+                className="flex-1 text-[13.5px] font-bold text-white bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)] shadow-md shadow-[var(--color-primary)]/20 transition-all py-2.5 rounded-xl flex items-center justify-center gap-2"
               >
                 RSVP Now
               </button>
-           </>
-        )}
+            )
+          )}
+          {event.status === 'COMPLETED' && (
+             <button
+              disabled
+              className="flex-1 text-[13.5px] font-bold text-[var(--color-text-muted)] bg-[var(--color-surface)] py-2.5 rounded-xl border border-[var(--color-border-light)] cursor-not-allowed"
+            >
+              Event Ended
+            </button>
+          )}
+        </div>
       </div>
-
-      {/* Details Overlay Link for expanding - absolute so we can click anywhere on top half if we wanted but let's just make it a clean top-right action or absolute wrapper later if needed. For now the UI is self-contained. */}
-      {/* Alternatively, user can click Details somewhere. Let's add an absolute pseudo-link covering top part, or keep it distinct. */}
-      {/* We will let existing flow dictate it, or add a subtle "Details" link */}
-      <Link href={`/student/events/${event.id}`} className="absolute top-6 right-6 text-[12px] font-bold text-[var(--color-primary)] hover:underline opacity-0 group-hover:opacity-100 transition-opacity">
-        View details
-      </Link>
     </div>
   );
 };
