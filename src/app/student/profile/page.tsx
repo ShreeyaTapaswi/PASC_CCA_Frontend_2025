@@ -355,8 +355,8 @@ export default function ProfilePage() {
                         [
                           stats.sessionsAttended >= 1,
                           stats.totalCredits >= 5,
-                          stats.sessionsAttended >= 5,
-                          stats.totalCredits >= 20,
+                          stats.sessionsAttended >= 10,
+                          stats.totalCredits >= 25,
                           stats.totalCredits >= 50
                         ].filter(Boolean).length
                       }</span>
@@ -369,8 +369,8 @@ export default function ProfilePage() {
                         const allBadges = [
                           { title: "First Steps", icon: "/first-steps.png", unlocked: stats.sessionsAttended >= 1 },
                           { title: "Getting Started", icon: "/getting-started.png", unlocked: stats.totalCredits >= 5 },
-                          { title: "Dedicated Learner", icon: "/dedicated-learner.png", unlocked: stats.sessionsAttended >= 5 },
-                          { title: "Credit Collector", icon: "/credit-collector.png", unlocked: stats.totalCredits >= 20 },
+                          { title: "Dedicated Learner", icon: "/dedicated-learner.png", unlocked: stats.sessionsAttended >= 10 },
+                          { title: "Credit Collector", icon: "/credit-collector.png", unlocked: stats.totalCredits >= 25 },
                           { title: "Credit Master", icon: "/credit-master.png", unlocked: stats.totalCredits >= 50 },
                         ];
                         const unlocked = allBadges.filter(b => b.unlocked).reverse();
@@ -435,21 +435,21 @@ export default function ProfilePage() {
                         {
                           id: 3,
                           title: "Dedicated Learner",
-                          description: "Attend 5 active sessions",
+                          description: "Attend 10 active sessions",
                           icon: "/dedicated-learner.png",
-                          isUnlocked: stats.sessionsAttended >= 5,
+                          isUnlocked: stats.sessionsAttended >= 10,
                           current: stats.sessionsAttended,
-                          target: 5,
+                          target: 10,
                           unit: "sessions"
                         },
                         {
                           id: 4,
                           title: "Credit Collector",
-                          description: "Accumulate 20 total credits",
+                          description: "Accumulate 25 total credits",
                           icon: "/credit-collector.png",
-                          isUnlocked: stats.totalCredits >= 20,
+                          isUnlocked: stats.totalCredits >= 25,
                           current: stats.totalCredits,
-                          target: 20,
+                          target: 25,
                           unit: "credits"
                         },
                         {

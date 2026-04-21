@@ -290,7 +290,7 @@ export default function StudentDashboard() {
     const credits = attendanceData?.totalCredits || 0;
     return [
       { title: 'First Steps', desc: 'Attend your first session', done: sessions >= 1, icon: Zap },
-      { title: 'Getting Started', desc: `Attend 5 sessions (${sessions}/5)`, done: sessions >= 5, icon: Star },
+      { title: 'Getting Started', desc: `Earn 5 credits (${credits}/5)`, done: credits >= 5, icon: Star },
       { title: 'Dedicated Learner', desc: `Attend 10 sessions (${sessions}/10)`, done: sessions >= 10, icon: Medal },
       { title: 'Credit Collector', desc: `Earn 25 credits (${credits}/25)`, done: credits >= 25, icon: Award },
       { title: 'Credit Master', desc: `Earn 50 credits (${credits}/50)`, done: credits >= 50, icon: Trophy },
@@ -433,13 +433,13 @@ export default function StudentDashboard() {
                       id: 3, 
                       title: "Dedicated", 
                       icon: "/dedicated-learner.png", 
-                      isUnlocked: stats.eventsAttended >= 5
+                      isUnlocked: (attendanceData?.sessionsAttended ?? stats.eventsAttended) >= 10
                     },
                     { 
                       id: 4, 
                       title: "Collector", 
                       icon: "/credit-collector.png", 
-                      isUnlocked: stats.totalCredits >= 20
+                      isUnlocked: stats.totalCredits >= 25
                     },
                     { 
                       id: 5, 
