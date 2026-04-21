@@ -297,6 +297,13 @@ const AdminDashboard = () => {
               Refresh Data
             </button>
             <button
+              onClick={() => router.push("/admin/invites")}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-[#2BA6DF]/30 bg-[#2BA6DF]/10 text-[#2BA6DF] hover:bg-[#2BA6DF]/20 transition-all shadow-sm active:scale-95"
+            >
+              <Mail className="h-4 w-4" />
+              Manage Invites
+            </button>
+            <button
               onClick={() => router.push("/admin/createEvent")}
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold border border-transparent bg-[var(--color-button-primary)] text-white hover:bg-[var(--color-button-primary-hover)] transition-all shadow-md hover:shadow-lg active:scale-95"
             >
