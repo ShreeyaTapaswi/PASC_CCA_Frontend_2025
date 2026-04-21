@@ -201,21 +201,14 @@ const Navbar = () => {
 
           {/* Show Login/Signup for guests, Profile dropdown for logged in users */}
           {!isLoggedIn ? (
-            // Guest view - Show Login and Sign Up buttons
+            // Guest view - Show only Login button
             <div className="flex items-center gap-2">
               <Link
                 href="/auth/login"
-                className="hidden sm:flex items-center gap-2 px-4 py-2 text-[var(--color-text-secondary)] hover:bg-[var(--color-nav-hover-bg)] rounded-lg transition-colors font-medium"
+                className="flex items-center gap-2 px-6 py-2.5 bg-[var(--color-button-primary)] text-white rounded-lg font-bold hover:bg-[var(--color-button-primary-hover)] hover:shadow-lg transition-all"
               >
                 <LogIn className="w-4 h-4" />
                 Login
-              </Link>
-              <Link
-                href="/auth/signup"
-                className="flex items-center gap-2 px-4 py-2 bg-[var(--color-button-primary)] text-white rounded-lg font-medium hover:bg-[var(--color-button-primary-hover)] hover:shadow-lg hover:scale-105 transition-all"
-              >
-                <UserPlus className="w-4 h-4" />
-                <span className="hidden sm:inline">Sign Up</span>
               </Link>
             </div>
           ) : (
