@@ -393,7 +393,7 @@ export default function Login() {
               <div className="space-y-1.5 relative">
                 <div className="flex justify-between items-center ml-1">
                   <label className="text-xs font-bold text-[var(--color-text-primary)] uppercase tracking-wider">Password</label>
-                  <Link href="#" className="text-xs font-semibold text-[var(--color-primary)] hover:text-[var(--color-button-primary-hover)] transition-colors">Forgot?</Link>
+                  <Link href="/auth/forgot-password" className="text-xs font-semibold text-[var(--color-primary)] hover:text-[var(--color-button-primary-hover)] transition-colors">Forgot?</Link>
                 </div>
                 <div className="relative">
                   <input

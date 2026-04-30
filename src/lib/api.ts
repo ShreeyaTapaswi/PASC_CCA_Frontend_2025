@@ -94,6 +94,13 @@ export const authAPI = {
   // Invitation system
   sendInvites: (emails: string[]) =>
     api.post('admin/send-invites', { emails }),
+
+  // Password reset
+  forgotPassword: (email: string) =>
+    api.post('auth/forgot-password', { email }),
+
+  resetPassword: (token: string, newPassword: string) =>
+    api.post('auth/reset-password', { token, newPassword }),
 };
 
 // Event APIs
