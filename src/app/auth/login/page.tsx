@@ -437,15 +437,7 @@ export default function Login() {
                   "Sign In Securely"
                 )}
               </button>
-
-              <div className="pt-6 text-center">
-                <p className="text-[var(--color-text-primary)] text-sm font-medium">
-                  New to PASC CCA?{" "}
-                  <Link href="/auth/signup" className="text-[var(--color-primary)] font-bold hover:underline transition-colors">
-                    Create an account
-                  </Link>
-                </p>
-              </div>
+              {/* Signup link removed for closed review */}
             </form>
           </div>
         </div>

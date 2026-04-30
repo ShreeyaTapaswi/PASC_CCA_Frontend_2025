@@ -17,6 +17,7 @@ import {
   Award,
   RefreshCw,
   LayoutDashboard,
+  Mail,
 } from "lucide-react";
 import { StatsCard } from "@/components/admin/stats-card";
 import { analyticsAPI } from "@/lib/api";
@@ -292,13 +293,20 @@ const AdminDashboard = () => {
                 </p>
               </div>
             </div>
-            <div className="flex flex-wrap gap-3 items-center">
+            <div className="flex flex-wrap gap-3 items-center mt-3 md:mt-0">
               <button
                 onClick={fetchAnalytics}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-[var(--color-border-light)] bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text-primary)] transition-all shadow-sm active:scale-95"
               >
                 <RefreshCw className="h-4 w-4" />
                 Refresh Data
+              </button>
+              <button
+                onClick={() => router.push("/admin/invites")}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold border border-[#2BA6DF]/30 bg-[#2BA6DF]/10 text-[#2BA6DF] hover:bg-[#2BA6DF]/20 transition-all shadow-sm active:scale-95"
+              >
+                <Mail className="h-4 w-4" />
+                Manage Invites
               </button>
               <button
                 onClick={() => router.push("/admin/createEvent")}
