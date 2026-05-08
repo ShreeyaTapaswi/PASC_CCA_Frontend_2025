@@ -112,6 +112,17 @@
     /* shadows */
     --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.08);
     --shadow-dark: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    /* semantic status colors */
+    --color-success: #059669;    /* emerald-700 */
+    --color-warning: #d97706;    /* amber-600 */
+    --color-progress: #2BA6DF;   /* primary blue */
+
+    /* misc feature colors */
+    --color-blue-light: #EBF8FF;
+    --color-blue-dark: #1E40AF;
+    --color-faint-blue-feature: rgba(43, 166, 223, 0.08);
+    --color-pure-white-feature: #FFFFFF;
   }
 
   .dark {
@@ -218,6 +229,17 @@
     /* shadows */
     --shadow-light: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
     --shadow-dark: 0 4px 14px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05);
+
+    /* semantic status colors */
+    --color-success: #34d399;    /* emerald-400 */
+    --color-warning: #fbbf24;    /* amber-400 */
+    --color-progress: #38BDF8;   /* sky-400 */
+
+    /* misc feature colors */
+    --color-blue-light: #0c2a3a;
+    --color-blue-dark: #38BDF8;
+    --color-faint-blue-feature: rgba(56, 189, 248, 0.10);
+    --color-pure-white-feature: #1F2937;
   }
 
   body {
@@ -225,6 +247,24 @@
     color: var(--color-text-primary);
     /* transition: background-color 0.3s, color 0.3s; */
     font-family: var(--font-dm-sans), system-ui, sans-serif;
+  }
+
+  /* Global cursor pointer for all interactive elements */
+  button:not([disabled]),
+  [role="button"]:not([aria-disabled="true"]),
+  select,
+  label[for],
+  summary,
+  a[href] {
+    cursor: pointer;
+  }
+
+  button[disabled],
+  [role="button"][aria-disabled="true"],
+  input[disabled],
+  select[disabled],
+  textarea[disabled] {
+    cursor: not-allowed;
   }
 
   code,

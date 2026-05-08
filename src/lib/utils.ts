@@ -13,9 +13,9 @@ export const getStatusColor = (status: Event['status']) => {
     case 'ONGOING':
       return 'text-green-600';
     case 'COMPLETED':
-      return 'text-gray-600';
+      return 'text-[var(--color-text-muted)]';
     default:
-      return 'text-gray-600';
+      return 'text-[var(--color-text-muted)]';
   }
 }
 

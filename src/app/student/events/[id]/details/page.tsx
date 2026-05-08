@@ -123,7 +123,7 @@ export default function EventDetailsPage({
         {/* Back Button */}
         <button
           onClick={() => router.back()}
-          className="flex items-center text-blue-600 hover:text-blue-800"
+          className="flex items-center text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] cursor-pointer transition-colors"
         >
           <ArrowLeft className="w-5 h-5 mr-1" />
           Back
@@ -184,29 +184,29 @@ export default function EventDetailsPage({
 
             {/* Event Details Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-              <div className="flex items-center gap-3 p-3 bg-accent rounded-lg">
-                <Calendar className="w-5 h-5 text-primary" />
+              <div className="flex items-center gap-3 p-3 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border-light)]">
+                <Calendar className="w-5 h-5 text-[var(--color-primary)]" />
                 <div>
                   <p className="text-xs text-muted-foreground">Start Date</p>
                   <p className="font-medium">{formatDateTime(event.startDate)}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 bg-accent rounded-lg">
-                <Calendar className="w-5 h-5 text-primary" />
+              <div className="flex items-center gap-3 p-3 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border-light)]">
+                <Calendar className="w-5 h-5 text-[var(--color-primary)]" />
                 <div>
                   <p className="text-xs text-muted-foreground">End Date</p>
                   <p className="font-medium">{formatDateTime(event.endDate)}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 bg-accent rounded-lg">
-                <MapPin className="w-5 h-5 text-primary" />
+              <div className="flex items-center gap-3 p-3 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border-light)]">
+                <MapPin className="w-5 h-5 text-[var(--color-primary)]" />
                 <div>
                   <p className="text-xs text-muted-foreground">Location</p>
                   <p className="font-medium">{event.location}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 bg-accent rounded-lg">
-                <Users className="w-5 h-5 text-primary" />
+              <div className="flex items-center gap-3 p-3 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border-light)]">
+                <Users className="w-5 h-5 text-[var(--color-primary)]" />
                 <div>
                   <p className="text-xs text-muted-foreground">Capacity</p>
                   <p className="font-medium">
