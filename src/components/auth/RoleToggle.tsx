@@ -42,11 +42,10 @@ export function RoleToggle({
         <button
           type="button"
           onClick={() => handleToggle("student")}
-          className={`relative flex-1 px-6 py-2.5 rounded-xl text-sm font-bold transition-colors duration-300 z-20 ${
-            role === "student"
+          className={`relative flex-1 px-6 py-2.5 rounded-xl text-sm font-bold transition-colors duration-300 z-20 ${role === "student"
               ? "text-[var(--color-primary)] drop-shadow-sm"
               : "text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
-          }`}
+            }`}
         >
           Student
         </button>
@@ -54,11 +53,10 @@ export function RoleToggle({
         <button
           type="button"
           onClick={() => handleToggle("admin")}
-          className={`relative flex-1 px-6 py-2.5 rounded-xl text-sm font-bold transition-colors duration-300 z-20 ${
-            role === "admin"
+          className={`relative flex-1 px-6 py-2.5 rounded-xl text-sm font-bold transition-colors duration-300 z-20 ${role === "admin"
               ? "text-[var(--color-primary)] drop-shadow-sm"
               : "text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
-          }`}
+            }`}
         >
           Admin
         </button>

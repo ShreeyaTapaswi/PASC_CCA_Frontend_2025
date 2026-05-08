@@ -17,9 +17,9 @@ const statusConfig: Record<string, { bg: string; text: string; dot: string }> = 
     dot: 'bg-emerald-500 dark:bg-emerald-400',
   },
   COMPLETED: {
-    bg: 'bg-gray-100 dark:bg-gray-800/60',
-    text: 'text-gray-600 dark:text-gray-400 font-bold',
-    dot: 'bg-gray-500 dark:bg-gray-400',
+    bg: 'bg-[var(--color-surface)] dark:bg-[var(--color-surface-hover)]/60',
+    text: 'text-[var(--color-text-muted)] font-bold',
+    dot: 'bg-[var(--color-text-muted)]',
   },
 };
 
